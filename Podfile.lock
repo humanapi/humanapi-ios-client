@@ -18,20 +18,17 @@ PODS:
   - AFNetworking/UIKit (2.2.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - gtm-oauth2 (0.1.0):
-    - GTMHTTPFetcher
-  - GTMHTTPFetcher (0.1.0)
+  - NXOAuth2Client (1.2.5)
   - XCAsyncTestCase (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
-  - gtm-oauth2 (~> 0.1.0)
+  - NXOAuth2Client (~> 1.2.2)
   - XCAsyncTestCase (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 47947303319594706f48a55185ea95a95159ab94
-  gtm-oauth2: 64f2d404a50676ab63b5437a02a7567da8f8b7fa
-  GTMHTTPFetcher: 0f02d5a5803dd08736462981064de6a7f59cf9bd
+  NXOAuth2Client: 9359e8e703bb8357f41c1e169ec3e107612a794c
   XCAsyncTestCase: ba895cb121b4d9fddceccd7c06f46a402241351f
 
 COCOAPODS: 0.32.1

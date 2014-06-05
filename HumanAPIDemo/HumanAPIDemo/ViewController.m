@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "GTMOAuth2ViewControllerTouch.h"
+#import "HumanAPIViewController.h"
 
 @interface ViewController ()
 
@@ -22,16 +22,33 @@
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button addTarget:self
-               action:@selector(onClick:)
+               action:@selector(onClickAuthorize:)
      forControlEvents:UIControlEventTouchUpInside];
     [button setTitle:@"Authorize" forState:UIControlStateNormal];
-    button.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    button.frame = CGRectMake(80.0, 130.0, 160.0, 40.0);
     [self.view addSubview:button];
+
+    UIButton *conbtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [conbtn addTarget:self
+               action:@selector(onClickConnect:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [conbtn setTitle:@"Connect" forState:UIControlStateNormal];
+    conbtn.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [self.view addSubview:conbtn];
 }
 
-- (void)onClick:(UIButton*)button
+NSString *myClientID = @"9bac0e053f486619c0795015c99477b49b229961";     // pre-assigned by service
+NSString *myClientSecret = @"b20f0c6cb300e7f6cfef2bb240d3f48481094efe"; // pre-assigned by service
+
+- (void)onClickAuthorize:(UIButton*)button
 {
     NSLog(@"Auth started");
+    
+    HumanAPIViewController *hvc = [[HumanAPIViewController alloc] init];
+    hvc.delegate = self;
+    [self presentViewController:hvc animated:YES completion:nil];
+    [hvc startAuthorizeFlowWithClientID:myClientID andClientSecret:myClientSecret];
+/*
     GTMOAuth2Authentication *auth = [self HumanAPIAuth];
     NSURL *authURL = [NSURL URLWithString:@"https://user.humanapi.co/oauth/authorize"];
     
@@ -42,6 +59,7 @@
                                                                  keychainItemName:kKeychainItemName
                                                                          delegate:self
                                                                  finishedSelector:@selector(viewController:finishedWithAuth:error:)];
+ */
     /*
     GTMOAuth2ViewControllerTouch *viewController;
     viewController = [[GTMOAuth2ViewControllerTouch alloc] initWithScope:scope
@@ -51,13 +69,10 @@
                                                                  delegate:self
                                                          finishedSelector:@selector(viewController:finishedWithAuth:error:)];
      */
-    [self presentViewController:viewController animated:YES completion:nil];
+    //[self presentViewController:viewController animated:YES completion:nil];
 }
 
-static NSString *const kKeychainItemName = @"HumanAPI OAuth2";
-NSString *kMyClientID = @"9bac0e053f486619c0795015c99477b49b229961";     // pre-assigned by service
-NSString *kMyClientSecret = @"b20f0c6cb300e7f6cfef2bb240d3f48481094efe"; // pre-assigned by service
-
+/*
 - (GTMOAuth2Authentication *)HumanAPIAuth {
     
     NSURL *tokenURL = [NSURL URLWithString:@"https://user.humanapi.co/oauth/token"];
@@ -95,7 +110,18 @@ NSString *kMyClientSecret = @"b20f0c6cb300e7f6cfef2bb240d3f48481094efe"; // pre-
         NSLog(@"Auth succeeded");
     }
 }
+*/
 
+- (void)onClickConnect:(UIButton*)button
+{
+    NSLog(@"Connect started");
+
+    HumanAPIViewController *hvc = [[HumanAPIViewController alloc] init];
+    hvc.delegate = self;
+    [self presentViewController:hvc animated:YES completion:nil];
+    [hvc startConnectFlow];
+}
+ 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
