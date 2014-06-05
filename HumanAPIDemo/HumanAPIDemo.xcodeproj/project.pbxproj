@@ -1,0 +1,570 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DA211064192213F2009DD911 /* HumanAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA211063192213F2009DD911 /* HumanAPIClient.m */; };
+		DAD1889819220B7000258424 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889719220B7000258424 /* Foundation.framework */; };
+		DAD1889A19220B7000258424 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889919220B7000258424 /* CoreGraphics.framework */; };
+		DAD1889C19220B7000258424 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889B19220B7000258424 /* UIKit.framework */; };
+		DAD188A219220B7000258424 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAD188A019220B7000258424 /* InfoPlist.strings */; };
+		DAD188A419220B7000258424 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188A319220B7000258424 /* main.m */; };
+		DAD188A819220B7000258424 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188A719220B7000258424 /* AppDelegate.m */; };
+		DAD188AB19220B7000258424 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD188A919220B7000258424 /* Main_iPhone.storyboard */; };
+		DAD188AE19220B7000258424 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAD188AC19220B7000258424 /* Main_iPad.storyboard */; };
+		DAD188B119220B7000258424 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188B019220B7000258424 /* ViewController.m */; };
+		DAD188B319220B7000258424 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAD188B219220B7000258424 /* Images.xcassets */; };
+		DAD188BA19220B7000258424 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD188B919220B7000258424 /* XCTest.framework */; };
+		DAD188BB19220B7000258424 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889719220B7000258424 /* Foundation.framework */; };
+		DAD188BC19220B7000258424 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889B19220B7000258424 /* UIKit.framework */; };
+		DAD188C419220B7000258424 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAD188C219220B7000258424 /* InfoPlist.strings */; };
+		DAD188C619220B7000258424 /* HumanAPIDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188C519220B7000258424 /* HumanAPIDemoTests.m */; };
+		DAD188D31922109800258424 /* HumanAPIClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188D21922109800258424 /* HumanAPIClientTests.m */; };
+		DAD188D41922109800258424 /* HumanAPIClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DAD188D21922109800258424 /* HumanAPIClientTests.m */; };
+		F91D21788B144F8EABA3D0D1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F579B8750945AB98A8F530 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAD188BD19220B7000258424 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAD1888C19220B7000258424 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAD1889319220B7000258424;
+			remoteInfo = HumanAPIDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4621533224224395B03EE407 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		46F579B8750945AB98A8F530 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA211062192213F2009DD911 /* HumanAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HumanAPIClient.h; path = ../../HumanAPI/HumanAPIClient.h; sourceTree = "<group>"; };
+		DA211063192213F2009DD911 /* HumanAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HumanAPIClient.m; path = ../../HumanAPI/HumanAPIClient.m; sourceTree = "<group>"; };
+		DAD1889419220B7000258424 /* HumanAPIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HumanAPIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD1889719220B7000258424 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		DAD1889919220B7000258424 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DAD1889B19220B7000258424 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DAD1889F19220B7000258424 /* HumanAPIDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HumanAPIDemo-Info.plist"; sourceTree = "<group>"; };
+		DAD188A119220B7000258424 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DAD188A319220B7000258424 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DAD188A519220B7000258424 /* HumanAPIDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HumanAPIDemo-Prefix.pch"; sourceTree = "<group>"; };
+		DAD188A619220B7000258424 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		DAD188A719220B7000258424 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DAD188AA19220B7000258424 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		DAD188AD19220B7000258424 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		DAD188AF19220B7000258424 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		DAD188B019220B7000258424 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		DAD188B219220B7000258424 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		DAD188B819220B7000258424 /* HumanAPIDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HumanAPIDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAD188B919220B7000258424 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		DAD188C119220B7000258424 /* HumanAPIDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HumanAPIDemoTests-Info.plist"; sourceTree = "<group>"; };
+		DAD188C319220B7000258424 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DAD188C519220B7000258424 /* HumanAPIDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HumanAPIDemoTests.m; sourceTree = "<group>"; };
+		DAD188D21922109800258424 /* HumanAPIClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HumanAPIClientTests.m; path = ../../HumanAPIClientTests/HumanAPIClientTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAD1889119220B7000258424 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD1889A19220B7000258424 /* CoreGraphics.framework in Frameworks */,
+				DAD1889C19220B7000258424 /* UIKit.framework in Frameworks */,
+				DAD1889819220B7000258424 /* Foundation.framework in Frameworks */,
+				F91D21788B144F8EABA3D0D1 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD188B519220B7000258424 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD188BA19220B7000258424 /* XCTest.framework in Frameworks */,
+				DAD188BC19220B7000258424 /* UIKit.framework in Frameworks */,
+				DAD188BB19220B7000258424 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DA21106519221CF0009DD911 /* HumanAPIClient */ = {
+			isa = PBXGroup;
+			children = (
+				DA211062192213F2009DD911 /* HumanAPIClient.h */,
+				DA211063192213F2009DD911 /* HumanAPIClient.m */,
+			);
+			name = HumanAPIClient;
+			sourceTree = "<group>";
+		};
+		DAD1888B19220B7000258424 = {
+			isa = PBXGroup;
+			children = (
+				DAD1889D19220B7000258424 /* HumanAPIDemo */,
+				DAD188BF19220B7000258424 /* HumanAPIDemoTests */,
+				DAD1889619220B7000258424 /* Frameworks */,
+				DAD1889519220B7000258424 /* Products */,
+				4621533224224395B03EE407 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		DAD1889519220B7000258424 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAD1889419220B7000258424 /* HumanAPIDemo.app */,
+				DAD188B819220B7000258424 /* HumanAPIDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAD1889619220B7000258424 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DAD1889719220B7000258424 /* Foundation.framework */,
+				DAD1889919220B7000258424 /* CoreGraphics.framework */,
+				DAD1889B19220B7000258424 /* UIKit.framework */,
+				DAD188B919220B7000258424 /* XCTest.framework */,
+				46F579B8750945AB98A8F530 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DAD1889D19220B7000258424 /* HumanAPIDemo */ = {
+			isa = PBXGroup;
+			children = (
+				DA21106519221CF0009DD911 /* HumanAPIClient */,
+				DAD188A619220B7000258424 /* AppDelegate.h */,
+				DAD188A719220B7000258424 /* AppDelegate.m */,
+				DAD188A919220B7000258424 /* Main_iPhone.storyboard */,
+				DAD188AC19220B7000258424 /* Main_iPad.storyboard */,
+				DAD188AF19220B7000258424 /* ViewController.h */,
+				DAD188B019220B7000258424 /* ViewController.m */,
+				DAD188B219220B7000258424 /* Images.xcassets */,
+				DAD1889E19220B7000258424 /* Supporting Files */,
+			);
+			path = HumanAPIDemo;
+			sourceTree = "<group>";
+		};
+		DAD1889E19220B7000258424 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAD1889F19220B7000258424 /* HumanAPIDemo-Info.plist */,
+				DAD188A019220B7000258424 /* InfoPlist.strings */,
+				DAD188A319220B7000258424 /* main.m */,
+				DAD188A519220B7000258424 /* HumanAPIDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAD188BF19220B7000258424 /* HumanAPIDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAD188D21922109800258424 /* HumanAPIClientTests.m */,
+				DAD188C519220B7000258424 /* HumanAPIDemoTests.m */,
+				DAD188C019220B7000258424 /* Supporting Files */,
+			);
+			path = HumanAPIDemoTests;
+			sourceTree = "<group>";
+		};
+		DAD188C019220B7000258424 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAD188C119220B7000258424 /* HumanAPIDemoTests-Info.plist */,
+				DAD188C219220B7000258424 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAD1889319220B7000258424 /* HumanAPIDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAD188C919220B7000258424 /* Build configuration list for PBXNativeTarget "HumanAPIDemo" */;
+			buildPhases = (
+				18DC85332253456194F43064 /* Check Pods Manifest.lock */,
+				DAD1889019220B7000258424 /* Sources */,
+				DAD1889119220B7000258424 /* Frameworks */,
+				DAD1889219220B7000258424 /* Resources */,
+				AFDB90F9A48D4EDC9FAFB24A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HumanAPIDemo;
+			productName = HumanAPIDemo;
+			productReference = DAD1889419220B7000258424 /* HumanAPIDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAD188B719220B7000258424 /* HumanAPIDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAD188CC19220B7000258424 /* Build configuration list for PBXNativeTarget "HumanAPIDemoTests" */;
+			buildPhases = (
+				DAD188B419220B7000258424 /* Sources */,
+				DAD188B519220B7000258424 /* Frameworks */,
+				DAD188B619220B7000258424 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAD188BE19220B7000258424 /* PBXTargetDependency */,
+			);
+			name = HumanAPIDemoTests;
+			productName = HumanAPIDemoTests;
+			productReference = DAD188B819220B7000258424 /* HumanAPIDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAD1888C19220B7000258424 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Yuri Subach";
+				TargetAttributes = {
+					DAD188B719220B7000258424 = {
+						TestTargetID = DAD1889319220B7000258424;
+					};
+				};
+			};
+			buildConfigurationList = DAD1888F19220B7000258424 /* Build configuration list for PBXProject "HumanAPIDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAD1888B19220B7000258424;
+			productRefGroup = DAD1889519220B7000258424 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAD1889319220B7000258424 /* HumanAPIDemo */,
+				DAD188B719220B7000258424 /* HumanAPIDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAD1889219220B7000258424 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD188AE19220B7000258424 /* Main_iPad.storyboard in Resources */,
+				DAD188B319220B7000258424 /* Images.xcassets in Resources */,
+				DAD188AB19220B7000258424 /* Main_iPhone.storyboard in Resources */,
+				DAD188A219220B7000258424 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD188B619220B7000258424 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD188C419220B7000258424 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18DC85332253456194F43064 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AFDB90F9A48D4EDC9FAFB24A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAD1889019220B7000258424 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD188B119220B7000258424 /* ViewController.m in Sources */,
+				DAD188D31922109800258424 /* HumanAPIClientTests.m in Sources */,
+				DAD188A819220B7000258424 /* AppDelegate.m in Sources */,
+				DAD188A419220B7000258424 /* main.m in Sources */,
+				DA211064192213F2009DD911 /* HumanAPIClient.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAD188B419220B7000258424 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAD188C619220B7000258424 /* HumanAPIDemoTests.m in Sources */,
+				DAD188D41922109800258424 /* HumanAPIClientTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAD188BE19220B7000258424 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAD1889319220B7000258424 /* HumanAPIDemo */;
+			targetProxy = DAD188BD19220B7000258424 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DAD188A019220B7000258424 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD188A119220B7000258424 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		DAD188A919220B7000258424 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD188AA19220B7000258424 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		DAD188AC19220B7000258424 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD188AD19220B7000258424 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		DAD188C219220B7000258424 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAD188C319220B7000258424 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAD188C719220B7000258424 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DAD188C819220B7000258424 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAD188CA19220B7000258424 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4621533224224395B03EE407 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HumanAPIDemo/HumanAPIDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"/**",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/XCAsyncTestCase\"",
+				);
+				INFOPLIST_FILE = "HumanAPIDemo/HumanAPIDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		DAD188CB19220B7000258424 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4621533224224395B03EE407 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HumanAPIDemo/HumanAPIDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"\"${PODS_ROOT}/Headers\"/**",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/XCAsyncTestCase\"",
+				);
+				INFOPLIST_FILE = "HumanAPIDemo/HumanAPIDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		DAD188CD19220B7000258424 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HumanAPIDemo.app/HumanAPIDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HumanAPIDemo/HumanAPIDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"${SRCROOT}/../Pods/Headers\"/**",
+				);
+				INFOPLIST_FILE = "HumanAPIDemoTests/HumanAPIDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		DAD188CE19220B7000258424 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HumanAPIDemo.app/HumanAPIDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HumanAPIDemo/HumanAPIDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"${SRCROOT}/../Pods/Headers\"/**",
+				);
+				INFOPLIST_FILE = "HumanAPIDemoTests/HumanAPIDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAD1888F19220B7000258424 /* Build configuration list for PBXProject "HumanAPIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD188C719220B7000258424 /* Debug */,
+				DAD188C819220B7000258424 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAD188C919220B7000258424 /* Build configuration list for PBXNativeTarget "HumanAPIDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD188CA19220B7000258424 /* Debug */,
+				DAD188CB19220B7000258424 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAD188CC19220B7000258424 /* Build configuration list for PBXNativeTarget "HumanAPIDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAD188CD19220B7000258424 /* Debug */,
+				DAD188CE19220B7000258424 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAD1888C19220B7000258424 /* Project object */;
+}
