@@ -10,10 +10,6 @@
 #import "NXOAuth2.h"
 #import "AFNetworking.h"
 
-@interface HumanAPIViewController ()
-
-@end
-
 @implementation HumanAPIViewController
 
 NSString *HumanAPIAuthURL  = @"https://user.humanapi.co/oauth/authorize";
@@ -28,7 +24,8 @@ NSString *redirectURL = @"https://oauth/";
     self.myWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 54, 320, 480 - 54)];
     self.myWebView.backgroundColor = [UIColor whiteColor];
     self.myWebView.scalesPageToFit = YES;
-    self.myWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
+    self.myWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+                                       UIViewAutoresizingFlexibleHeight);
     self.myWebView.delegate = self;
     [self.view addSubview:self.myWebView];
 
@@ -43,10 +40,16 @@ NSString *redirectURL = @"https://oauth/";
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc]
                                     initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                     target:self
-                                    action:@selector(dismiss)];
+                                    action:@selector(onClickCancel)];
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
+}
+
+- (void)onClickCancel
+{
+    [self fireAuthorizeFailureWithError:@"cancelled by user"];
+    [self dismiss];
 }
 
 - (void)dismiss {
@@ -54,11 +57,28 @@ NSString *redirectURL = @"https://oauth/";
                                                       completion:nil];
 }
 
+- (void)fireAuthorizeSuccessWithToken:(NSString *)accessToken
+{
+    id<HumanAPINotifications> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(onAuthorizeSuccess:)]) {
+        [delegate onAuthorizeSuccess:accessToken];
+    }
+}
+
+- (void)fireAuthorizeFailureWithError:(NSString *)error
+{
+    id<HumanAPINotifications> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(onAuthorizeFailure:)]) {
+        [delegate onAuthorizeFailure:error];
+    }
+}
+
 - (void)startAuthorizeFlowWithClientID:(NSString *)cliendID
                        andClientSecret:(NSString *)clientSecret;
 {
     self.clientID = cliendID;
     self.clientSecret = clientSecret;
+    
     [[NXOAuth2AccountStore sharedStore] setClientID:cliendID
                                              secret:clientSecret
                                    authorizationURL:[NSURL URLWithString:HumanAPIAuthURL]
@@ -72,59 +92,49 @@ NSString *redirectURL = @"https://oauth/";
                                        [self.myWebView loadRequest:
                                         [NSURLRequest requestWithURL:preparedURL]];
                                    }];
-    //[self.myWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://yurisubach.com"]]];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSURL *url = request.URL;
-    NSString *reqStr = url.absoluteString;
+    NSString *reqStr = request.URL.absoluteString;
     NSLog(@"req = %@", reqStr);
     if ([reqStr hasPrefix:redirectURL]) {
         NSLog(@"found redirectURL!");
-        NSDictionary *params = [self parseQueryString:[url query]];
-        NSString *code = [params objectForKey:@"code"];
-        if (code == nil) {
-            NSLog(@"ERROR: `code` not found in request");
-            return NO;
-        }
-        NSLog(@"found code = %@", code);
-        
-        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-        NSDictionary *parameters = @{@"client_id": self.clientID,
-                                     @"client_secret": self.clientSecret,
-                                     @"code": code};
-        [manager POST:HumanAPITokenURL parameters:parameters
-              success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                  //NSLog(@"JSON: %@", responseObject);
-                  NSDictionary *res = (NSDictionary *)responseObject;
-                  NSLog(@"access_token = %@", res[@"access_token"]);
-              }
-              failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                  NSLog(@"Error: %@", error);
-              }];
-        
-        /*NSString *redir = [NSString stringWithFormat:@"%@?%@", redirectURL, url.query];
-        [[NXOAuth2AccountStore sharedStore] handleRedirectURL:[NSURL URLWithString:redir]];
-        */
-         
-        /*
-        NXOAuth2Account *account = [[NXOAuth2AccountStore sharedStore]
-                                    accountWithIdentifier:@"HumanAPI"];
-        [NXOAuth2Request performMethod:@"POST"
-                            onResource:[NSURL URLWithString:HumanAPITokenURL]
-                       usingParameters:@{@"code":code, @"grant_type":@"authorization_code"}
-                           withAccount:account
-                   sendProgressHandler:^(unsigned long long bytesSend, unsigned long long bytesTotal) {
-                   }
-                       responseHandler:^(NSURLResponse *response, NSData *responseData, NSError *error){
-                           NSString* respStr = [NSString stringWithUTF8String:[responseData bytes]];
-                           NSLog(@"response = %@", respStr);
-                       }];
-        */
+        [self processAuthCodeFrom:request.URL];
         return NO;
     }
     return YES;
+}
+
+- (void)processAuthCodeFrom:(NSURL *)url
+{
+    NSDictionary *params = [self parseQueryString:[url query]];
+    NSString *code = [params objectForKey:@"code"];
+    if (code == nil) {
+        NSLog(@"ERROR: `code` not found in request");
+        [self dismiss];
+        [self fireAuthorizeFailureWithError:@"`code` not found in request"];
+        return;
+    }
+    NSLog(@"found code = %@", code);
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *parameters = @{@"client_id": self.clientID,
+                                 @"client_secret": self.clientSecret,
+                                 @"code": code};
+    [manager POST:HumanAPITokenURL parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              //NSLog(@"JSON: %@", responseObject);
+              NSDictionary *res = (NSDictionary *)responseObject;
+              NSLog(@"access_token = %@", res[@"access_token"]);
+              [self dismiss];
+              [self fireAuthorizeSuccessWithToken:res[@"access_token"]];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Error: %@", error);
+              [self dismiss];
+              [self fireAuthorizeFailureWithError:@"error while requesting `access_token`"];
+          }];
 }
 
 - (NSDictionary *)parseQueryString:(NSString *)query {
@@ -150,6 +160,18 @@ NSString *redirectURL = @"https://oauth/";
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+	//	Only allow rotation to portrait
+	return UIInterfaceOrientationMaskPortrait;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+	//	Force to portrait
+	return UIInterfaceOrientationPortrait;
 }
 
 @end
