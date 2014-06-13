@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA211064192213F2009DD911 /* HumanAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DA211063192213F2009DD911 /* HumanAPIClient.m */; };
-		DA4F6329194080A900F9834C /* HumanAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4F6328194080A900F9834C /* HumanAPIViewController.m */; };
-		DA4F632A194080A900F9834C /* HumanAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4F6328194080A900F9834C /* HumanAPIViewController.m */; };
+		DABAAA23194B407F0049122D /* HumanAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DABAAA20194B407F0049122D /* HumanAPIClient.m */; };
+		DABAAA24194B407F0049122D /* HumanAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DABAAA20194B407F0049122D /* HumanAPIClient.m */; };
+		DABAAA25194B407F0049122D /* HumanAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABAAA22194B407F0049122D /* HumanAPIViewController.m */; };
+		DABAAA26194B407F0049122D /* HumanAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DABAAA22194B407F0049122D /* HumanAPIViewController.m */; };
 		DAD1889819220B7000258424 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889719220B7000258424 /* Foundation.framework */; };
 		DAD1889A19220B7000258424 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889919220B7000258424 /* CoreGraphics.framework */; };
 		DAD1889C19220B7000258424 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD1889B19220B7000258424 /* UIKit.framework */; };
@@ -43,10 +44,10 @@
 /* Begin PBXFileReference section */
 		4621533224224395B03EE407 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		46F579B8750945AB98A8F530 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA211062192213F2009DD911 /* HumanAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HumanAPIClient.h; path = ../../HumanAPI/HumanAPIClient.h; sourceTree = "<group>"; };
-		DA211063192213F2009DD911 /* HumanAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HumanAPIClient.m; path = ../../HumanAPI/HumanAPIClient.m; sourceTree = "<group>"; };
-		DA4F6327194080A900F9834C /* HumanAPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanAPIViewController.h; sourceTree = "<group>"; };
-		DA4F6328194080A900F9834C /* HumanAPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumanAPIViewController.m; sourceTree = "<group>"; };
+		DABAAA1F194B407F0049122D /* HumanAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanAPIClient.h; sourceTree = "<group>"; };
+		DABAAA20194B407F0049122D /* HumanAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumanAPIClient.m; sourceTree = "<group>"; };
+		DABAAA21194B407F0049122D /* HumanAPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanAPIViewController.h; sourceTree = "<group>"; };
+		DABAAA22194B407F0049122D /* HumanAPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumanAPIViewController.m; sourceTree = "<group>"; };
 		DAD1889419220B7000258424 /* HumanAPIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HumanAPIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD1889719220B7000258424 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DAD1889919220B7000258424 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,15 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA21106519221CF0009DD911 /* HumanAPIClient */ = {
+		DABAAA1E194B407F0049122D /* HumanAPI */ = {
 			isa = PBXGroup;
 			children = (
-				DA211062192213F2009DD911 /* HumanAPIClient.h */,
-				DA211063192213F2009DD911 /* HumanAPIClient.m */,
-				DA4F6327194080A900F9834C /* HumanAPIViewController.h */,
-				DA4F6328194080A900F9834C /* HumanAPIViewController.m */,
+				DABAAA1F194B407F0049122D /* HumanAPIClient.h */,
+				DABAAA20194B407F0049122D /* HumanAPIClient.m */,
+				DABAAA21194B407F0049122D /* HumanAPIViewController.h */,
+				DABAAA22194B407F0049122D /* HumanAPIViewController.m */,
 			);
-			name = HumanAPIClient;
+			name = HumanAPI;
+			path = ../../HumanAPI;
 			sourceTree = "<group>";
 		};
 		DAD1888B19220B7000258424 = {
@@ -141,7 +143,7 @@
 		DAD1889D19220B7000258424 /* HumanAPIDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DA21106519221CF0009DD911 /* HumanAPIClient */,
+				DABAAA1E194B407F0049122D /* HumanAPI */,
 				DAD188A619220B7000258424 /* AppDelegate.h */,
 				DAD188A719220B7000258424 /* AppDelegate.m */,
 				DAD188A919220B7000258424 /* Main_iPhone.storyboard */,
@@ -321,8 +323,8 @@
 				DAD188D31922109800258424 /* HumanAPIClientTests.m in Sources */,
 				DAD188A819220B7000258424 /* AppDelegate.m in Sources */,
 				DAD188A419220B7000258424 /* main.m in Sources */,
-				DA211064192213F2009DD911 /* HumanAPIClient.m in Sources */,
-				DA4F6329194080A900F9834C /* HumanAPIViewController.m in Sources */,
+				DABAAA23194B407F0049122D /* HumanAPIClient.m in Sources */,
+				DABAAA25194B407F0049122D /* HumanAPIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,8 +333,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD188C619220B7000258424 /* HumanAPIDemoTests.m in Sources */,
+				DABAAA26194B407F0049122D /* HumanAPIViewController.m in Sources */,
+				DABAAA24194B407F0049122D /* HumanAPIClient.m in Sources */,
 				DAD188D41922109800258424 /* HumanAPIClientTests.m in Sources */,
-				DA4F632A194080A900F9834C /* HumanAPIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +469,7 @@
 					"\"${PODS_ROOT}/Headers\"/**",
 					"\"${PODS_ROOT}/Headers/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/XCAsyncTestCase\"",
+					"\"${SRCROOT}/../HumanAPI\"",
 				);
 				INFOPLIST_FILE = "HumanAPIDemo/HumanAPIDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -485,6 +489,7 @@
 					"\"${PODS_ROOT}/Headers\"/**",
 					"\"${PODS_ROOT}/Headers/AFNetworking\"",
 					"\"${PODS_ROOT}/Headers/XCAsyncTestCase\"",
+					"\"${SRCROOT}/../HumanAPI\"",
 				);
 				INFOPLIST_FILE = "HumanAPIDemo/HumanAPIDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -511,6 +516,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"${SRCROOT}/../Pods/Headers\"/**",
+					"\"${SRCROOT}/../HumanAPI\"",
 				);
 				INFOPLIST_FILE = "HumanAPIDemoTests/HumanAPIDemoTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -534,6 +540,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"\"${SRCROOT}/../Pods/Headers\"/**",
+					"\"${SRCROOT}/../HumanAPI\"",
 				);
 				INFOPLIST_FILE = "HumanAPIDemoTests/HumanAPIDemoTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
