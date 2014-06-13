@@ -12,7 +12,6 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 // CLIENT
 // ----  ----  ----  ----
 
-
 @implementation HumanAPIClient
 
 + (HumanAPIClient *)sharedHumanAPIClient
