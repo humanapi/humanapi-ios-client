@@ -8,22 +8,36 @@
 
 #import <UIKit/UIKit.h>
 
+/** Flow type definition */
+typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
+    FlowTypeAuthorize,
+    FlowTypeConnect
+};
+
+/** Notifications (callbacks) specification */
 @protocol HumanAPINotifications <NSObject>
 @optional
 - (void)onAuthorizeSuccess:(NSString *)accessToken;
 - (void)onAuthorizeFailure:(NSString *)error;
+- (void)onConnectSuccess:(NSString *)humanId accessToken:(NSString *)accessToken
+             publicToken:(NSString *)publicToken;
+- (void)onConnectFailure:(NSString *)error;
 @end
 
-
+/**
+ * HumanAPI UI component
+ */
 @interface HumanAPIViewController : UIViewController<UIWebViewDelegate>
 
 @property (nonatomic, weak) id <HumanAPINotifications> delegate;
-@property (nonatomic, retain) UIWebView *myWebView;
+@property (nonatomic, retain) UIWebView *webView;
 @property NSString *clientID;
 @property NSString *clientSecret;
+@property HumanAPIFlowType flowType;
 
-- (void)startAuthorizeFlowWithClientID:(NSString *)cliendID
-                       andClientSecret:(NSString *)clientSecret;
+- (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret;
+- (void)startAuthorizeFlow;
 - (void)startConnectFlow;
+- (void)startConnectFlowFor:(NSString *)userId;
 
 @end
