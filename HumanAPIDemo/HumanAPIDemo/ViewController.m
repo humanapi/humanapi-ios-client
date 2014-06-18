@@ -33,7 +33,7 @@
     [conbtn addTarget:self
                action:@selector(onClickConnect:)
      forControlEvents:UIControlEventTouchUpInside];
-    [conbtn setTitle:@"Connect" forState:UIControlStateNormal];
+    [conbtn setTitle:@"Connect Health Data" forState:UIControlStateNormal];
     conbtn.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
     [self.view addSubview:conbtn];
 }
@@ -76,7 +76,7 @@ NSString *myClientSecret = @"b20f0c6cb300e7f6cfef2bb240d3f48481094efe";
                                                                    andClientSecret:myClientSecret];
     hvc.delegate = self;
     [self presentViewController:hvc animated:YES completion:nil];
-    [hvc startConnectFlowFor:@"ios_test3"];
+    [hvc startConnectFlow];
 }
 
 /** Connect success handler */

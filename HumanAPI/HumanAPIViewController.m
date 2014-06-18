@@ -179,6 +179,7 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
                       "<body onload=\" \n"
                       "HumanConnect.open({ \n"
                       "    iframe: true, \n"
+                      "    language: 'en', \n"
                       "    clientId: '%@', \n"
                       "    clientUserId: '%@', \n"
                       "    _baseURL: 'https://connect.humanapi.co', \n"
