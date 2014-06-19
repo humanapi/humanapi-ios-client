@@ -76,7 +76,7 @@ NSString *myClientSecret = @"b20f0c6cb300e7f6cfef2bb240d3f48481094efe";
                                                                    andClientSecret:myClientSecret];
     hvc.delegate = self;
     [self presentViewController:hvc animated:YES completion:nil];
-    [hvc startConnectFlow];
+    [hvc startConnectFlowFor:@"test_user4"];
 }
 
 /** Connect success handler */
