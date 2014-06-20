@@ -4,8 +4,9 @@
     <script>
       window.onload = function() {
         HumanConnect.open({
+          iframe: true,
           clientId: '9bac0e053f486619c0795015c99477b49b229961', 
-          clientUserId: 'some_value3',
+          clientUserId: 'some_value4',
           _baseURL: 'https://connect.humanapi.co',
           finish: function(err, sessionObject) {
             console.log('do something with token', err, sessionObject);
