@@ -19,13 +19,17 @@
 {
     [super viewDidLoad];
 
+    // Screen sizes
+    int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
+    int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
+
     // Connect button
     UIButton *conbtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [conbtn addTarget:self
                action:@selector(onClickConnect:)
      forControlEvents:UIControlEventTouchUpInside];
     [conbtn setTitle:@"Connect Health Data" forState:UIControlStateNormal];
-    conbtn.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    conbtn.frame = CGRectMake(ScreenWidth/2 - 80, ScreenHeight/2 - 20, 160.0, 40.0);
     [self.view addSubview:conbtn];
 }
 

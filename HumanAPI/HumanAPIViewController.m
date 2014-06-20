@@ -31,8 +31,14 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 {
     [super viewDidLoad];
     
+    // Geometry calculations
+    int NavbarHeight = 54;
+    int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
+    int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
+    
     // UIWebView init
-    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 54, 320, 480 - 54)];
+    self.webView = [[UIWebView alloc] initWithFrame:
+                    CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.scalesPageToFit = YES;
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
@@ -41,7 +47,8 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     [self.view addSubview:self.webView];
 
     // Navigation bar
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 54)];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
+                               CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
     navbar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = @"Human API";
