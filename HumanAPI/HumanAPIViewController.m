@@ -30,6 +30,7 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     
     // Geometry calculations
     int NavbarHeight = 54;
