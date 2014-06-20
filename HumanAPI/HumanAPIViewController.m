@@ -57,11 +57,7 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 /** Cancel click handler */
 - (void)onClickCancel
 {
-    if (self.flowType == FlowTypeConnect) {
-        [self fireConnectFailureWithError:@"cancelled by user"];
-    } else {
-        [self fireAuthorizeFailureWithError:@"cancelled by user"];
-    }
+    [self fireConnectFailureWithError:@"cancelled by user"];
     [self dismiss];
 }
 
@@ -76,10 +72,7 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 {
     NSString *reqStr = request.URL.absoluteString;
     NSLog(@"req = %@ : %d", reqStr, navigationType);
-    if ([reqStr hasPrefix:redirectURL]) {
-        [self processAuthCodeFrom:request.URL];
-        return NO;
-    } else if ([reqStr hasPrefix:@"https://connect-token"]) {
+    if ([reqStr hasPrefix:@"https://connect-token"]) {
         [self processConnectTokenFrom:request.URL];
         return NO;
     } else if ([reqStr hasPrefix:@"https://connect-closed"]) {
@@ -88,77 +81,6 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
         return NO;
     }
     return YES;
-}
-
-/**
- * Authorize flow entry point
- */
-- (void)startAuthorizeFlow
-{
-    self.flowType = FlowTypeAuthorize;
-    [[NXOAuth2AccountStore sharedStore] setClientID:self.clientID
-                                             secret:self.clientSecret
-                                   authorizationURL:[NSURL URLWithString:HumanAPIAuthURL]
-                                           tokenURL:[NSURL URLWithString:HumanAPITokenURL]
-                                        redirectURL:[NSURL URLWithString:redirectURL]
-                                     forAccountType:@"HumanAPI"];
-    
-    [[NXOAuth2AccountStore sharedStore] requestAccessToAccountWithType:@"HumanAPI"
-                                   withPreparedAuthorizationURLHandler:^(NSURL *preparedURL) {
-                                       NSLog(@"Open URL: %@", preparedURL);
-                                       [self.webView loadRequest:
-                                        [NSURLRequest requestWithURL:preparedURL]];
-                                   }];
-}
-
-/** Process data returned from JS on authorize flow */
-- (void)processAuthCodeFrom:(NSURL *)url
-{
-    NSDictionary *params = [self parseQueryString:[url query]];
-    NSString *code = [params objectForKey:@"code"];
-    if (code == nil) {
-        NSLog(@"ERROR: `code` not found in request");
-        [self dismiss];
-        [self fireAuthorizeFailureWithError:@"`code` not found in request"];
-        return;
-    }
-    NSLog(@"found code = %@", code);
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *postData = @{@"client_id": self.clientID,
-                               @"client_secret": self.clientSecret,
-                               @"code": code};
-    [manager POST:HumanAPITokenURL parameters:postData
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              //NSLog(@"JSON: %@", responseObject);
-              NSDictionary *res = (NSDictionary *)responseObject;
-              NSLog(@"access_token = %@", res[@"access_token"]);
-              [self dismiss];
-              [self fireAuthorizeSuccessWithToken:res[@"access_token"]];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@", error);
-              [self dismiss];
-              [self fireAuthorizeFailureWithError:@"error while requesting `access_token`"];
-          }];
-}
-
-/** Calls authorize success method in delegate */
-- (void)fireAuthorizeSuccessWithToken:(NSString *)accessToken
-{
-    id<HumanAPINotifications> delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(onAuthorizeSuccess:)]) {
-        [delegate onAuthorizeSuccess:accessToken];
-    }
-}
-
-/** Calls authorize failure method in delegate */
-- (void)fireAuthorizeFailureWithError:(NSString *)error
-{
-    id<HumanAPINotifications> delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(onAuthorizeFailure:)]) {
-        [delegate onAuthorizeFailure:error];
-    }
 }
 
 /**

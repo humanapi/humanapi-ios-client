@@ -17,8 +17,6 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 /** Notifications (callbacks) specification */
 @protocol HumanAPINotifications <NSObject>
 @optional
-- (void)onAuthorizeSuccess:(NSString *)accessToken;
-- (void)onAuthorizeFailure:(NSString *)error;
 - (void)onConnectSuccess:(NSString *)humanId accessToken:(NSString *)accessToken
              publicToken:(NSString *)publicToken;
 - (void)onConnectFailure:(NSString *)error;
@@ -36,7 +34,6 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 @property HumanAPIFlowType flowType;
 
 - (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret;
-- (void)startAuthorizeFlow;
 - (void)startConnectFlow;
 - (void)startConnectFlowFor:(NSString *)userId;
 
