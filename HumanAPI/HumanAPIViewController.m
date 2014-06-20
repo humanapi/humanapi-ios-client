@@ -40,7 +40,6 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     self.webView = [[UIWebView alloc] initWithFrame:
                     CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
     self.webView.backgroundColor = [UIColor whiteColor];
-    self.webView.scalesPageToFit = YES;
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
                                        UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
@@ -91,28 +90,34 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 }
 
 /**
- * Connect flow entry point (without user)
+ * Connect flow entry point for new `userId`
  */
-- (void)startConnectFlow
+- (void)startConnectFlowForNewUser:(NSString *)userId
 {
-    [self startConnectFlowFor:nil];
+    [self startConnectFlow:[NSString stringWithFormat:
+                            @"clientId:     '%@', \n"
+                            " clientUserId: '%@', \n", self.clientID, userId]];
 }
 
-/**
- * Connect flow entry point for specific `userId`
- */
-- (void)startConnectFlowFor:(NSString *)userId
+- (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken
+{
+    [self startConnectFlow:[NSString stringWithFormat:
+                            @"clientUserId: '%@', \n"
+                            " publicToken:  '%@', \n", userId, publicToken]];
+}
+
+/** Connect flow entry point implementation */
+- (void)startConnectFlow:(NSString *)params
 {
     self.flowType = FlowTypeConnect;
+    NSString *baseURL = @"https://connect.humanapi.co"; // http://localhost:4000
     NSString *html = [NSString stringWithFormat:@"<html> \n"
                       "<body onload=\" \n"
                       "HumanConnect.open({ \n"
                       "    iframe: true, \n"
                       "    language: 'en', \n"
-                      "    clientId: '%@', \n"
-                      "    clientUserId: '%@', \n"
-                      "    _baseURL: 'https://connect.humanapi.co', \n"
-                      //"    _baseURL: 'http://localhost:4000', \n"
+                      "%@" /* params here */
+                      "    _baseURL: '%@', \n"
                       "    finish: function(err, obj) { \n"
                       "        window.location = 'https://connect-token?' + \n"
                       "            'sessionToken=' + obj.sessionToken + \n"
@@ -123,9 +128,8 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
                       "    } \n"
                       "}); \n"
                       "\"> \n"
-                      "<script src='https://connect.humanapi.co/connect.js'></script> \n"
-                      //"<script src='http://localhost:4000/connect.js'></script> \n"
-                      "</body></html>", self.clientID, userId];
+                      "<script src='%@/connect.js'></script> \n"
+                      "</body></html>", params, baseURL, baseURL];
     [self.webView loadHTMLString:html baseURL:nil];
 }
 

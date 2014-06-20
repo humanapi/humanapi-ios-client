@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 @property HumanAPIFlowType flowType;
 
 - (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret;
-- (void)startConnectFlow;
-- (void)startConnectFlowFor:(NSString *)userId;
+- (void)startConnectFlowForNewUser:(NSString *)userId;
+- (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken;
 
 @end
