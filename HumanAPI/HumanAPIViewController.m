@@ -12,6 +12,12 @@
 
 @implementation HumanAPIViewController
 
+/** Definitions for type tags */
+typedef enum {
+    wvtMain = 1,
+    wvtPopup = 2
+} WebViewType;
+
 NSString *HumanAPIAuthURL  = @"https://user.humanapi.co/oauth/authorize";
 NSString *HumanAPITokenURL = @"https://user.humanapi.co/oauth/token";
 NSString *redirectURL = @"https://oauth/";
@@ -44,8 +50,21 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
                                        UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
+    self.webView.tag = wvtMain;
     [self.view addSubview:self.webView];
 
+    // Popup UIWebView init
+    self.popupWebView = [[UIWebView alloc] initWithFrame:
+                         CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
+    self.popupWebView.backgroundColor = [UIColor whiteColor];
+    self.popupWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
+                                          UIViewAutoresizingFlexibleHeight);
+    self.popupWebView.delegate = self;
+    self.popupWebView.hidden = YES;
+    self.popupWebView.tag = wvtPopup;
+    [self.view addSubview:self.popupWebView];
+
+    
     // Navigation bar
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
                                CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
@@ -59,6 +78,15 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
+}
+
+/** Before view appears */
+-(void)viewWillAppear:(BOOL)animated
+{
+    // close popup
+    self.webView.hidden = NO;
+    self.popupWebView.hidden = YES;
+    [self.popupWebView loadHTMLString:@"" baseURL:nil];
 }
 
 /** Cancel click handler */
@@ -87,7 +115,42 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
         [self dismiss];
         return NO;
     }
+    
+    // Popup handling
+    NSString *url = reqStr;
+    if ([url hasPrefix:@"https://close-popup"]) {
+        NSLog(@"closing popup ...");
+        self.webView.hidden = NO;
+        self.popupWebView.hidden = YES;
+        [self.popupWebView loadHTMLString:@"" baseURL:nil];
+        return NO;
+    } else if ([url rangeOfString:@"popup=1"].location != NSNotFound) {
+        NSLog(@"got popup=1 ...");
+        if (webView.tag == wvtPopup) {
+            return YES; // already created
+        }
+        NSLog(@"opening popup window ...");
+        self.webView.hidden = YES;
+        self.popupWebView.hidden = NO;
+        [self.popupWebView loadRequest:request];
+        return NO;
+    }
     return YES;
+}
+
+/** Processing after page load */
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    if (webView.tag == wvtPopup) {
+        // popup: overwrite the 'window.close' to be a 'close-popup' URL
+        NSLog(@"overwriting window.close ...");
+        NSString *js = @""
+        "window.close = function () { \n"
+        "   window.location.assign('https://close-popup'); \n"
+        "};";
+        __unused NSString *jsOverrides = [webView
+                                          stringByEvaluatingJavaScriptFromString:js];
+    }
 }
 
 /**
@@ -112,12 +175,17 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
 {
     self.flowType = FlowTypeConnect;
     NSString *baseURL = @"https://connect.humanapi.co"; // http://localhost:4000
+    NSString *html = @"<html><body> \n"
+    "<br><br><br> \n"
+    "<a href='javascript:window.open(\"http://localhost/close-test.html?popup=1\");'>OPEN POPUP</a>"
+    "</body></html>";
+    /*
     NSString *html = [NSString stringWithFormat:@"<html> \n"
                       "<body onload=\" \n"
                       "HumanConnect.open({ \n"
                       "    iframe: true, \n"
                       "    language: 'en', \n"
-                      "%@" /* params here */
+                      "%@" // params here
                       "    _baseURL: '%@', \n"
                       "    finish: function(err, obj) { \n"
                       "        window.location = 'https://connect-token?' + \n"
@@ -131,6 +199,7 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
                       "\"> \n"
                       "<script src='%@/connect.js'></script> \n"
                       "</body></html>", params, baseURL, baseURL];
+    */
     [self.webView loadHTMLString:html baseURL:nil];
 }
 
