@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 
 @property (nonatomic, weak) id <HumanAPINotifications> delegate;
 @property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) UIWebView *popupWebView;
 @property NSString *clientID;
 @property NSString *clientSecret;
 @property HumanAPIFlowType flowType;
