@@ -21,7 +21,8 @@ HumanAPI consists of two parts placed into respective files:
 - Install [CocoaPods](http://cocoapods.org/)
 - `pod install` or `pod install --verbose` if you want to see details
 - `open HumanAPIDemo.xcworkspace/`
-- Hit _Cmd+R_ in XCode
+- Open file `HumanApiDemo/ViewController.m`, find `startConnectFlowForNewUser:@"test_user5"` and replace `test_user5` with some random user identifier
+- Run 'HumanAPIDemo' project
 
 ## How to use in own project
 
