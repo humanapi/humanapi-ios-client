@@ -34,7 +34,8 @@
 }
 
 /* Developemnt instance app */
-//NSString *myClientID = @"9bac0e053f486619c0795015c99477b49b229961";
+//NSString *myClientID = @"demo_app_client_id";
+//NSString *myClientSecret = @"demo_app-secret";
 
 /* Production app test data : pre-assigned by service */
 NSString *myClientID = @"9bac0e053f486619c0795015c99477b49b229961";
