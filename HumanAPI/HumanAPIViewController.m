@@ -23,6 +23,10 @@ NSString *HumanAPITokenURL = @"https://user.humanapi.co/oauth/token";
 NSString *redirectURL = @"https://oauth/";
 NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/tokens";
 
+// geometry vars
+CGFloat NavbarHeight = 54;
+
+
 /** Initialization of the instance */
 - (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret
 {
@@ -39,7 +43,6 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
     
     // Geometry calculations
-    int NavbarHeight = 54;
     int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
     int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
     
@@ -78,6 +81,11 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
+    
+    // keyboard hide handler
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification object:nil];
+    self.keyboardFixer = 1.0;
 }
 
 /** Before view appears */
@@ -106,6 +114,16 @@ NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/token
     self.webView.hidden = NO;
     self.popupWebView.hidden = YES;
     [self.popupWebView loadHTMLString:@"" baseURL:nil];
+}
+
+/** Keyboard hide handler */
+- (void)keyboardDidHide:(NSNotification*)aNotification
+{
+    NSLog(@"keyboard did hide, fixing webview ...");
+    [self.webView setFrame:CGRectMake(0, NavbarHeight,
+                                      self.webView.frame.size.width + self.keyboardFixer,
+                                      self.webView.frame.size.height)];
+    self.keyboardFixer = self.keyboardFixer * -1;
 }
 
 /** UIWebView request handler, used for catching specific URLs */

@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 @property NSString *clientID;
 @property NSString *clientSecret;
 @property HumanAPIFlowType flowType;
+@property CGFloat keyboardFixer;
 
 - (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret;
 - (void)startConnectFlowForNewUser:(NSString *)userId;
