@@ -120,6 +120,8 @@ CGFloat NavbarHeight = 54;
 - (void)keyboardDidHide:(NSNotification*)aNotification
 {
     NSLog(@"keyboard did hide, fixing webview ...");
+    // Fix for iOS7
+    // TODO Make sure it's not required in iOS8 and surround w/ "if (iOS <= 7)"
     [self.webView setFrame:CGRectMake(0, NavbarHeight,
                                       self.webView.frame.size.width + self.keyboardFixer,
                                       self.webView.frame.size.height)];
