@@ -22,6 +22,21 @@
 @end
 
 /**
+ * Base class for data types that organized in lists with
+ * possibility to access details of each object from the same end point.
+ * (List queries can be filtered)
+ *
+ * Used for medical end point for now but not limited to them.
+ */
+@interface HumanAPIClientAbstractListableEntity : HumanAPIClientAbstractEntity
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure;
+- (void)get:(NSString *)objId
+  onSuccess:(void (^)(id responseObject))success
+  onFailure:(void (^)(NSError *error))failure;
+@end
+
+/**
  * Base class for data types that are discrete measurements and
  * occur at a point in time.
  */
@@ -141,6 +156,36 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// MedicalAllergy Entity
+@interface HumanAPIClientMedicalAllergyEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
+// MedicalEncounter Entity
+@interface HumanAPIClientMedicalEncounterEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
+// MedicalImmunization Entity
+@interface HumanAPIClientMedicalImmunizationEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
+// MedicalIssue Entity
+@interface HumanAPIClientMedicalIssueEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
+// MedicalMedication Entity
+@interface HumanAPIClientMedicalMedicationEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
+// MedicalTestResult Entity
+@interface HumanAPIClientMedicalTestResultEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 // ----  ----  ----  ----
 // CLIENT
 // ----  ----  ----  ----
@@ -174,6 +219,12 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientActivityEntity *)activity;
 - (HumanAPIClientLocationEntity *)location;
 - (HumanAPIClientLocationEntity *)sleep;
+- (HumanAPIClientMedicalAllergyEntity *)medicalAllergy;
+- (HumanAPIClientMedicalEncounterEntity *)medicalEncounter;
+- (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization;
+- (HumanAPIClientMedicalIssueEntity *)medicalIssue;
+- (HumanAPIClientMedicalMedicationEntity *)medicalMedication;
+- (HumanAPIClientMedicalTestResultEntity *)medicalTestResult;
 @end
 
 @protocol HumanAPIClientDelegate <NSObject>

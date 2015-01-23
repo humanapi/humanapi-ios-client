@@ -126,6 +126,36 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientSleepEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientMedicalAllergyEntity *)medicalAllergy
+{
+    return [[HumanAPIClientMedicalAllergyEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientMedicalEncounterEntity *)medicalEncounter
+{
+    return [[HumanAPIClientMedicalEncounterEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization
+{
+    return [[HumanAPIClientMedicalImmunizationEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientMedicalIssueEntity *)medicalIssue
+{
+    return [[HumanAPIClientMedicalIssueEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientMedicalMedicationEntity *)medicalMedication
+{
+    return [[HumanAPIClientMedicalMedicationEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientMedicalTestResultEntity *)medicalTestResult
+{
+    return [[HumanAPIClientMedicalTestResultEntity alloc] initWithClient:self];
+}
+
 @end
 
 
@@ -151,22 +181,22 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 @implementation HumanAPIClientAbstractMeasurementEntity
 
 - (void)latestWithOnSuccess:(void (^)(id responseObject))success
-                onFailure:(void (^)(NSError *error))failure
+                  onFailure:(void (^)(NSError *error))failure
 {
     [self.client execute:[self.masterPath stringByAppendingString:@""]
                onSuccess:success onFailure:failure];
 }
 
 - (void)readingsWithOnSuccess:(void (^)(id responseObject))success
-                  onFailure:(void (^)(NSError *error))failure
+                    onFailure:(void (^)(NSError *error))failure
 {
     [self.client execute:[self.masterPath stringByAppendingString:@"/readings"]
                onSuccess:success onFailure:failure];
 }
 
 - (void)reading:(NSString *)objId
-    onSuccess:(void (^)(id responseObject))success
-    onFailure:(void (^)(NSError *error))failure
+      onSuccess:(void (^)(id responseObject))success
+      onFailure:(void (^)(NSError *error))failure
 {
     NSString *rdpath = [@"/readings/" stringByAppendingString:objId];
     [self.client execute:[self.masterPath stringByAppendingString:rdpath]
@@ -174,20 +204,41 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 }
 
 - (void)dailyWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure
+                 onFailure:(void (^)(NSError *error))failure
 {
     [self dailyForDay:[NSDate date] onSuccess:success onFailure:failure];
 }
 
 - (void)dailyForDay:(NSDate *)day
-        onSuccess:(void (^)(id responseObject))success
-        onFailure:(void (^)(NSError *error))failure
+          onSuccess:(void (^)(id responseObject))success
+          onFailure:(void (^)(NSError *error))failure
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSString *iso = [dateFormat stringFromDate:day];
     NSString *dpath = [@"/readings/daily/" stringByAppendingString:iso];
     [self.client execute:[self.masterPath stringByAppendingString:dpath]
+               onSuccess:success onFailure:failure];
+}
+
+@end
+
+// Abstract Listable Entity
+@implementation HumanAPIClientAbstractListableEntity
+
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@""]
+               onSuccess:success onFailure:failure];
+}
+
+- (void)get:(NSString *)objId
+  onSuccess:(void (^)(id responseObject))success
+  onFailure:(void (^)(NSError *error))failure
+{
+    NSString *acpath = [@"/" stringByAppendingString:objId];
+    [self.client execute:[self.masterPath stringByAppendingString:acpath]
                onSuccess:success onFailure:failure];
 }
 
@@ -383,5 +434,53 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"sleeps"];
+}
+@end
+
+// MedicalAllergy Entity
+@implementation HumanAPIClientMedicalAllergyEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/allergies"];
+}
+@end
+
+// MedicalEncounter Entity
+@implementation HumanAPIClientMedicalEncounterEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/encounters"];
+}
+@end
+
+// MedicalImmunization Entity
+@implementation HumanAPIClientMedicalImmunizationEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/immunizations"];
+}
+@end
+
+// MedicalIssue Entity
+@implementation HumanAPIClientMedicalIssueEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/issues"];
+}
+@end
+
+// MedicalMedication Entity
+@implementation HumanAPIClientMedicalMedicationEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/medications"];
+}
+@end
+
+// MedicalTestResult Entity
+@implementation HumanAPIClientMedicalTestResultEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/test_results"];
 }
 @end

@@ -292,5 +292,50 @@
     [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
 }
 
+// MedicalEncounters Entity
+
+- (void)testMedicalEncounterList
+{
+    HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
+    [[client medicalEncounter] listWithOnSuccess:^(id responseObject) {
+        NSLog(@"Success response: %@", responseObject);
+        XCTAssertNotNil(responseObject);
+        
+        NSArray *res = (NSArray *)responseObject;
+        XCTAssertTrue([res count] > 0);
+        
+        NSDictionary *obj = [res objectAtIndex:0];
+        XCTAssertNotNil(obj[@"id"]);
+        XCTAssertNotNil(obj[@"dateTime"]);
+        XCTAssertNotNil(obj[@"organization"]);
+        
+        [self notify:XCTAsyncTestCaseStatusSucceeded];
+    } onFailure:^(NSError *error) {
+        NSLog(@"Failure detected: %@", error);
+        [self notify:XCTAsyncTestCaseStatusFailed];
+    }];
+    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    
+}
+
+- (void)testMedicalEncounterGet
+{
+    HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
+    [[client medicalEncounter] get:@"54442e3ea1d1261353c16962" onSuccess:^(id responseObject) {
+        NSLog(@"Success response: %@", responseObject);
+        XCTAssertNotNil(responseObject);
+        
+        NSDictionary *res = (NSDictionary *)responseObject;
+        XCTAssertNotNil(res[@"id"]);
+        XCTAssertNotNil(res[@"dateTime"]);
+        XCTAssertNotNil(res[@"organization"]);
+        
+        [self notify:XCTAsyncTestCaseStatusSucceeded];
+    } onFailure:^(NSError *error) {
+        NSLog(@"Failure detected: %@", error);
+        [self notify:XCTAsyncTestCaseStatusFailed];
+    }];
+    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+}
 
 @end
