@@ -1,4 +1,5 @@
 platform :ios, '7.0'
+source 'https://github.com/CocoaPods/Specs.git'
 xcodeproj 'HumanAPIDemo/HumanAPIDemo'
 pod 'AFNetworking', '~> 2.2'
 pod 'XCAsyncTestCase', '~> 0.0.1'
