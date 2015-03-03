@@ -19,16 +19,13 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - NXOAuth2Client (1.2.5)
-  - XCAsyncTestCase (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
   - NXOAuth2Client (~> 1.2.2)
-  - XCAsyncTestCase (~> 0.0.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 47947303319594706f48a55185ea95a95159ab94
   NXOAuth2Client: 9359e8e703bb8357f41c1e169ec3e107612a794c
-  XCAsyncTestCase: ba895cb121b4d9fddceccd7c06f46a402241351f
 
 COCOAPODS: 0.34.4

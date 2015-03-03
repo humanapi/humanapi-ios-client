@@ -1,39 +1,48 @@
 //
-//  HumanAPIClientTests.m
-//  HumanAPIClient implementation tests
+//  HumanAPIClientTests2.m
+//  HumanAPIDemo
+//
+//  Created by Yuri Subach on 03/03/15.
+//  Copyright (c) 2015 Yuri Subach. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "XCTestCase+AsyncTesting.h"
 #import "HumanAPIClient.h"
 
-@interface HumanAPIClientTests : XCTestCase
+@interface HumanAPIClientTest2 : XCTestCase
 
 @end
 
-@implementation HumanAPIClientTests
+@implementation HumanAPIClientTest2
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
     
     // set access token
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     client.accessToken = @"demo";
-    
-    // Put setup code here.
 }
 
-- (void)tearDown
-{
-    // Put teardown code here.
+- (void)tearDown {
     [super tearDown];
+}
+
+- (void)waitForExpectations {
+    [self waitForExpectationsWithTimeout:10
+                                 handler:^(NSError *error) {
+                                     // handler is called on _either_ success or failure
+                                     if (error != nil) {
+                                         XCTFail(@"timeout error: %@", error);
+                                     }
+                                 }];
 }
 
 // Human Entity
 
 - (void)testHumanGet
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client human] getWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -43,18 +52,18 @@
         XCTAssertNotNil(res[@"activitySummary"]);
         XCTAssertEqualObjects(@"52e20cb2fff56aac62000001", res[@"userId"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 // Profile Entity
 
 - (void)testProfileGet
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client profile] getWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -64,18 +73,18 @@
         XCTAssertEqualObjects(@"52e20cb2fff56aac62000001", res[@"userId"]);
         XCTAssertEqualObjects(@"demo@humanapi.co", res[@"email"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 // Genetic Trait Entity
 
 - (void)testGeneticTraitList
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client geneticTrait] listWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -87,18 +96,18 @@
         XCTAssertNotNil(obj[@"userId"]);
         XCTAssertNotNil(obj[@"trait"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 // Blood Glucose Entity
 
 - (void)testBloodGlucoseLatest
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client bloodGlucose] latestWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -110,16 +119,16 @@
         XCTAssertNotNil(res[@"value"]);
         XCTAssertNotNil(res[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 - (void)testBloodGlucoseReadings
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client bloodGlucose] readingsWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -133,16 +142,16 @@
         XCTAssertNotNil(obj[@"value"]);
         XCTAssertNotNil(obj[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 - (void)testBloodGlucoseReading
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client bloodGlucose] reading:@"52e20cb3fff56aac6200044a" onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -154,16 +163,16 @@
         XCTAssertNotNil(res[@"value"]);
         XCTAssertNotNil(res[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 - (void)testBloodGlucoseDaily
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-23"];
@@ -175,19 +184,18 @@
         
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
-
+        
         NSDictionary *obj = [res objectAtIndex:0];
         XCTAssertNotNil(obj[@"id"]);
         XCTAssertNotNil(obj[@"timestamp"]);
         XCTAssertNotNil(obj[@"value"]);
         XCTAssertNotNil(obj[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
     
 }
 
@@ -195,6 +203,7 @@
 
 - (void)testActivityList
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client activity] listWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -209,17 +218,17 @@
         XCTAssertNotNil(obj[@"duration"]);
         XCTAssertNotNil(obj[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
     
 }
 
 - (void)testActivityGet
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client activity] get:@"52e20cb5fff56aac62000b73" onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -231,16 +240,16 @@
         XCTAssertNotNil(res[@"duration"]);
         XCTAssertNotNil(res[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 - (void)testActivityDaily
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-24"];
@@ -259,16 +268,16 @@
         XCTAssertNotNil(obj[@"duration"]);
         XCTAssertNotNil(obj[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 - (void)testSummaryDaily
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-24"];
@@ -284,18 +293,18 @@
         XCTAssertNotNil(res[@"duration"]);
         XCTAssertNotNil(res[@"source"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 // MedicalEncounters Entity
 
 - (void)testMedicalEncounterList
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client medicalEncounter] listWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -309,17 +318,17 @@
         XCTAssertNotNil(obj[@"dateTime"]);
         XCTAssertNotNil(obj[@"organization"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
     
 }
 
 - (void)testMedicalEncounterGet
 {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client medicalEncounter] get:@"54442e3ea1d1261353c16962" onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
@@ -330,12 +339,11 @@
         XCTAssertNotNil(res[@"dateTime"]);
         XCTAssertNotNil(res[@"organization"]);
         
-        [self notify:XCTAsyncTestCaseStatusSucceeded];
+        [expectation fulfill];
     } onFailure:^(NSError *error) {
-        NSLog(@"Failure detected: %@", error);
-        [self notify:XCTAsyncTestCaseStatusFailed];
+        XCTFail(@"Failure detected: %@", error);
     }];
-    [self waitForStatus: XCTAsyncTestCaseStatusSucceeded timeout:10];
+    [self waitForExpectations];
 }
 
 @end
