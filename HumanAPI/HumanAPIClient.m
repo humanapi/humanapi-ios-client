@@ -17,12 +17,12 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 + (HumanAPIClient *)sharedHumanAPIClient
 {
     static HumanAPIClient *_sharedClient = nil;
-    
+
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _sharedClient = [[self alloc] init];
     });
-    
+
     return _sharedClient;
 }
 
@@ -115,6 +115,12 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 {
     return [[HumanAPIClientActivityEntity alloc] initWithClient:self];
 }
+
+- (HumanAPIClientActivitySummaryEntity *)activitySummary
+{
+    return [[HumanAPIClientActivitySummaryEntity alloc] initWithClient:self];
+}
+
 
 - (HumanAPIClientLocationEntity *)location
 {
@@ -418,6 +424,14 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"activities"];
+}
+@end
+
+// Activity Summary Entity
+@implementation HumanAPIClientActivitySummaryEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"activities/summaries"];
 }
 @end
 

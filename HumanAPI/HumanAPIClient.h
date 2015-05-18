@@ -146,6 +146,11 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// Activity Summary Entity
+@interface HumanAPIClientActivitySummaryEntity : HumanAPIClientAbstractPeriodicalEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 // Location Entity
 @interface HumanAPIClientLocationEntity : HumanAPIClientAbstractPeriodicalEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
@@ -217,6 +222,7 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientHeightEntity *)height;
 - (HumanAPIClientWeightEntity *)weight;
 - (HumanAPIClientActivityEntity *)activity;
+- (HumanAPIClientActivitySummaryEntity *)activitySummary;
 - (HumanAPIClientLocationEntity *)location;
 - (HumanAPIClientLocationEntity *)sleep;
 - (HumanAPIClientMedicalAllergyEntity *)medicalAllergy;
