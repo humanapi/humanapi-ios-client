@@ -78,15 +78,13 @@ onFailure:(void (^)(NSError *error))failure;
 - (void)summaryForDay:(NSDate *)day
           onSuccess:(void (^)(id responseObject))success
           onFailure:(void (^)(NSError *error))failure;
+- (void)summariesWithOnSuccess:(void (^)(id responseObject))success
+              onFailure:(void (^)(NSError *error))failure;
+
 @end
 
 // Activity Entity
 @interface HumanAPIClientActivityEntity : HumanAPIClientAbstractPeriodicalEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// Activity Summary Entity
-@interface HumanAPIClientActivitySummaryEntity : HumanAPIClientAbstractPeriodicalEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
@@ -218,7 +216,6 @@ onFailure:(void (^)(NSError *error))failure;
       onFailure:(void (^)(NSError *error))failure;
 
 - (HumanAPIClientActivityEntity *)activity;
-- (HumanAPIClientActivitySummaryEntity *)activitySummary;
 - (HumanAPIClientBloodGlucoseEntity *)bloodGlucose;
 - (HumanAPIClientBloodOxygenEntity *)bloodOxygen;
 - (HumanAPIClientBloodPressureEntity *)bloodPressure;

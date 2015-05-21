@@ -62,11 +62,6 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientActivityEntity alloc] initWithClient:self];
 }
 
-- (HumanAPIClientActivitySummaryEntity *)activitySummary
-{
-    return [[HumanAPIClientActivitySummaryEntity alloc] initWithClient:self];
-}
-
 - (HumanAPIClientBloodGlucoseEntity *)bloodGlucose
 {
     return [[HumanAPIClientBloodGlucoseEntity alloc] initWithClient:self];
@@ -312,6 +307,13 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
                onSuccess:success onFailure:failure];
 }
 
+- (void)summariesWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@"/summaries"]
+               onSuccess:success onFailure:failure];
+}
+
 @end
 
 //WELLNESS ENTITIES
@@ -321,14 +323,6 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"activities"];
-}
-@end
-
-// Activity Summary Entity
-@implementation HumanAPIClientActivitySummaryEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client
-{
-    return [super initWithClient:client andMasterPath:@"activities/summaries"];
 }
 @end
 
