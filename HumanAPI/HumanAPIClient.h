@@ -80,25 +80,14 @@ onFailure:(void (^)(NSError *error))failure;
           onFailure:(void (^)(NSError *error))failure;
 @end
 
-// Human Entity
-@interface HumanAPIClientHumanEntity : HumanAPIClientAbstractEntity
+// Activity Entity
+@interface HumanAPIClientActivityEntity : HumanAPIClientAbstractPeriodicalEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
 @end
 
-// Profile Entity
-@interface HumanAPIClientProfileEntity : HumanAPIClientAbstractEntity
+// Activity Summary Entity
+@interface HumanAPIClientActivitySummaryEntity : HumanAPIClientAbstractPeriodicalEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-@end
-
-// Genetic Trait Entity
-@interface HumanAPIClientGeneticTraitEntity : HumanAPIClientAbstractEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)listWithOnSuccess:(void (^)(id responseObject))success
-                onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Blood Glucose Entity
@@ -126,6 +115,13 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// Genetic Trait Entity
+@interface HumanAPIClientGeneticTraitEntity : HumanAPIClientAbstractEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure;
+@end
+
 // Heart Rate Entity
 @interface HumanAPIClientHeartRateEntity : HumanAPIClientAbstractMeasurementEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
@@ -136,19 +132,11 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
-// Weight Entity
-@interface HumanAPIClientWeightEntity : HumanAPIClientAbstractMeasurementEntity
+// Human Entity
+@interface HumanAPIClientHumanEntity : HumanAPIClientAbstractEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// Activity Entity
-@interface HumanAPIClientActivityEntity : HumanAPIClientAbstractPeriodicalEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// Activity Summary Entity
-@interface HumanAPIClientActivitySummaryEntity : HumanAPIClientAbstractPeriodicalEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Location Entity
@@ -156,10 +144,23 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// Profile Entity
+@interface HumanAPIClientProfileEntity : HumanAPIClientAbstractEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+@end
+
 // Sleep Entity
 @interface HumanAPIClientSleepEntity : HumanAPIClientAbstractPeriodicalEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
+
+// Weight Entity
+@interface HumanAPIClientWeightEntity : HumanAPIClientAbstractMeasurementEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 
 // MedicalAllergy Entity
 @interface HumanAPIClientMedicalAllergyEntity : HumanAPIClientAbstractListableEntity
@@ -210,21 +211,24 @@ onFailure:(void (^)(NSError *error))failure;
 - (void)execute:(NSString *)path withParameters:(NSMutableDictionary *)parameters
       onSuccess:(void (^)(id responseObject))success
       onFailure:(void (^)(NSError *error))failure;
-- (HumanAPIClientHumanEntity *)human;
-- (HumanAPIClientProfileEntity *)profile;
-- (HumanAPIClientGeneticTraitEntity *)geneticTrait;
+
+- (HumanAPIClientActivityEntity *)activity;
+- (HumanAPIClientActivitySummaryEntity *)activitySummary;
 - (HumanAPIClientBloodGlucoseEntity *)bloodGlucose;
 - (HumanAPIClientBloodOxygenEntity *)bloodOxygen;
 - (HumanAPIClientBloodPressureEntity *)bloodPressure;
 - (HumanAPIClientBMIEntity *)bmi;
 - (HumanAPIClientBodyFatEntity *)bodyFat;
+- (HumanAPIClientGeneticTraitEntity *)geneticTrait;
 - (HumanAPIClientHeartRateEntity *)heartRate;
 - (HumanAPIClientHeightEntity *)height;
-- (HumanAPIClientWeightEntity *)weight;
-- (HumanAPIClientActivityEntity *)activity;
-- (HumanAPIClientActivitySummaryEntity *)activitySummary;
+- (HumanAPIClientHumanEntity *)human;
 - (HumanAPIClientLocationEntity *)location;
+- (HumanAPIClientProfileEntity *)profile;
 - (HumanAPIClientLocationEntity *)sleep;
+- (HumanAPIClientWeightEntity *)weight;
+
+
 - (HumanAPIClientMedicalAllergyEntity *)medicalAllergy;
 - (HumanAPIClientMedicalEncounterEntity *)medicalEncounter;
 - (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization;

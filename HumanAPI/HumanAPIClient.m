@@ -56,19 +56,15 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     }];
 }
 
-- (HumanAPIClientHumanEntity *)human
+//Wellness
+- (HumanAPIClientActivityEntity *)activity
 {
-    return [[HumanAPIClientHumanEntity alloc] initWithClient:self];
+    return [[HumanAPIClientActivityEntity alloc] initWithClient:self];
 }
 
-- (HumanAPIClientProfileEntity *)profile
+- (HumanAPIClientActivitySummaryEntity *)activitySummary
 {
-    return [[HumanAPIClientProfileEntity alloc] initWithClient:self];
-}
-
-- (HumanAPIClientGeneticTraitEntity *)geneticTrait
-{
-    return [[HumanAPIClientGeneticTraitEntity alloc] initWithClient:self];
+    return [[HumanAPIClientActivitySummaryEntity alloc] initWithClient:self];
 }
 
 - (HumanAPIClientBloodGlucoseEntity *)bloodGlucose
@@ -96,6 +92,11 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientBodyFatEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientGeneticTraitEntity *)geneticTrait
+{
+    return [[HumanAPIClientGeneticTraitEntity alloc] initWithClient:self];
+}
+
 - (HumanAPIClientHeartRateEntity *)heartRate
 {
     return [[HumanAPIClientHeartRateEntity alloc] initWithClient:self];
@@ -106,25 +107,19 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientHeightEntity alloc] initWithClient:self];
 }
 
-- (HumanAPIClientWeightEntity *)weight
+- (HumanAPIClientHumanEntity *)human
 {
-    return [[HumanAPIClientWeightEntity alloc] initWithClient:self];
+    return [[HumanAPIClientHumanEntity alloc] initWithClient:self];
 }
-
-- (HumanAPIClientActivityEntity *)activity
-{
-    return [[HumanAPIClientActivityEntity alloc] initWithClient:self];
-}
-
-- (HumanAPIClientActivitySummaryEntity *)activitySummary
-{
-    return [[HumanAPIClientActivitySummaryEntity alloc] initWithClient:self];
-}
-
 
 - (HumanAPIClientLocationEntity *)location
 {
     return [[HumanAPIClientLocationEntity alloc] initWithClient:self];
+}
+
+- (HumanAPIClientProfileEntity *)profile
+{
+    return [[HumanAPIClientProfileEntity alloc] initWithClient:self];
 }
 
 - (HumanAPIClientSleepEntity *)sleep
@@ -132,6 +127,13 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientSleepEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientWeightEntity *)weight
+{
+    return [[HumanAPIClientWeightEntity alloc] initWithClient:self];
+}
+
+
+//Medical
 - (HumanAPIClientMedicalAllergyEntity *)medicalAllergy
 {
     return [[HumanAPIClientMedicalAllergyEntity alloc] initWithClient:self];
@@ -307,52 +309,22 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 
 @end
 
-// Human Entity
-@implementation HumanAPIClientHumanEntity
+//WELLNESS ENTITIES
 
+// Activity Entity
+@implementation HumanAPIClientActivityEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@""];
+    return [super initWithClient:client andMasterPath:@"activities"];
 }
-
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-{
-    return [self.client execute:@"" onSuccess:success onFailure:failure];
-}
-
 @end
 
-// Profile Entity
-@implementation HumanAPIClientProfileEntity
-
+// Activity Summary Entity
+@implementation HumanAPIClientActivitySummaryEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@""];
+    return [super initWithClient:client andMasterPath:@"activities/summaries"];
 }
-
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-{
-    [self.client execute:@"profile" onSuccess:success onFailure:failure];
-}
-
-@end
-
-// Genetic Trait Entity
-@implementation HumanAPIClientGeneticTraitEntity
-
-- (instancetype)initWithClient:(HumanAPIClient *)client
-{
-    return [super initWithClient:client andMasterPath:@""];
-}
-
-- (void)listWithOnSuccess:(void (^)(id responseObject))success
-                onFailure:(void (^)(NSError *error))failure;
-{
-    [self.client execute:@"genetic/traits" onSuccess:success onFailure:failure];
-}
-
 @end
 
 // Blood Glucose Entity
@@ -395,6 +367,22 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 }
 @end
 
+// Genetic Trait Entity
+@implementation HumanAPIClientGeneticTraitEntity
+
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@""];
+}
+
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure;
+{
+    [self.client execute:@"genetic/traits" onSuccess:success onFailure:failure];
+}
+
+@end
+
 // Heart Rate Entity
 @implementation HumanAPIClientHeartRateEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client
@@ -411,28 +399,20 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 }
 @end
 
-// Weight Entity
-@implementation HumanAPIClientWeightEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client
-{
-    return [super initWithClient:client andMasterPath:@"weight"];
-}
-@end
+// Human Entity
+@implementation HumanAPIClientHumanEntity
 
-// Activity Entity
-@implementation HumanAPIClientActivityEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@"activities"];
+    return [super initWithClient:client andMasterPath:@""];
 }
-@end
 
-// Activity Summary Entity
-@implementation HumanAPIClientActivitySummaryEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
 {
-    return [super initWithClient:client andMasterPath:@"activities/summaries"];
+    return [self.client execute:@"" onSuccess:success onFailure:failure];
 }
+
 @end
 
 // Location Entity
@@ -443,6 +423,23 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 }
 @end
 
+// Profile Entity
+@implementation HumanAPIClientProfileEntity
+
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@""];
+}
+
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+{
+    [self.client execute:@"profile" onSuccess:success onFailure:failure];
+}
+
+@end
+
+
 // Sleep Entity
 @implementation HumanAPIClientSleepEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client
@@ -450,6 +447,17 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [super initWithClient:client andMasterPath:@"sleeps"];
 }
 @end
+
+// Weight Entity
+@implementation HumanAPIClientWeightEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"weight"];
+}
+@end
+
+
+// MEDICAL ENTITIES
 
 // MedicalAllergy Entity
 @implementation HumanAPIClientMedicalAllergyEntity
