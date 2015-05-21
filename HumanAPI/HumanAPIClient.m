@@ -117,6 +117,11 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientLocationEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientMealEntity *)meal
+{
+    return [[HumanAPIClientMealEntity alloc] initWithClient:self];
+}
+
 - (HumanAPIClientProfileEntity *)profile
 {
     return [[HumanAPIClientProfileEntity alloc] initWithClient:self];
@@ -420,6 +425,14 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"locations"];
+}
+@end
+
+// Meal Entity
+@implementation HumanAPIClientMealEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"food/meals"];
 }
 @end
 
