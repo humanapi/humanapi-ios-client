@@ -78,6 +78,9 @@ onFailure:(void (^)(NSError *error))failure;
 - (void)summaryForDay:(NSDate *)day
           onSuccess:(void (^)(id responseObject))success
           onFailure:(void (^)(NSError *error))failure;
+- (void)summaryForID:(NSString *)objId
+          onSuccess:(void (^)(id responseObject))success
+          onFailure:(void (^)(NSError *error))failure;
 - (void)summariesWithOnSuccess:(void (^)(id responseObject))success
               onFailure:(void (^)(NSError *error))failure;
 

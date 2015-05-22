@@ -307,6 +307,15 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
                onSuccess:success onFailure:failure];
 }
 
+- (void)summaryForID:(NSString *)objId
+           onSuccess:(void (^)(id responseObject))success
+           onFailure:(void (^)(NSError *error))failure
+{
+  NSString *acpath = [@"/summaries/" stringByAppendingString:objId];
+  [self.client execute:[self.masterPath stringByAppendingString:acpath]
+             onSuccess:success onFailure:failure];
+}
+
 - (void)summariesWithOnSuccess:(void (^)(id responseObject))success
                 onFailure:(void (^)(NSError *error))failure
 {
