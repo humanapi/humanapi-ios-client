@@ -193,6 +193,11 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// MedicalNarrative Entity
+@interface HumanAPIClientMedicalNarrativeEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 // MedicalOrganization Entity
 @interface HumanAPIClientMedicalOrganizationEntity : HumanAPIClientAbstractListableEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
@@ -250,6 +255,7 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization;
 - (HumanAPIClientMedicalIssueEntity *)medicalIssue;
 - (HumanAPIClientMedicalMedicationEntity *)medicalMedication;
+- (HumanAPIClientMedicalNarrativeEntity *)medicalNarrative;
 - (HumanAPIClientMedicalOrganizationEntity *)medicalOrganization;
 - (HumanAPIClientMedicalTestResultEntity *)medicalTestResult;
 - (HumanAPIClientMedicalVitalsEntity *)medicalVitals;
