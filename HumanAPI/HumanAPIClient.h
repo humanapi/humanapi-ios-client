@@ -203,6 +203,13 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// MedicalProfile Entity
+@interface HumanAPIClientMedicalProfileEntity : HumanAPIClientAbstractEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+@end
+
 // MedicalTestResult Entity
 @interface HumanAPIClientMedicalTestResultEntity : HumanAPIClientAbstractListableEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
@@ -257,6 +264,7 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientMedicalMedicationEntity *)medicalMedication;
 - (HumanAPIClientMedicalNarrativeEntity *)medicalNarrative;
 - (HumanAPIClientMedicalOrganizationEntity *)medicalOrganization;
+- (HumanAPIClientMedicalProfileEntity *)medicalProfile;
 - (HumanAPIClientMedicalTestResultEntity *)medicalTestResult;
 - (HumanAPIClientMedicalVitalsEntity *)medicalVitals;
 @end

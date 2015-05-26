@@ -169,6 +169,11 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientMedicalOrganizationEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientMedicalProfileEntity *)medicalProfile
+{
+    return [[HumanAPIClientMedicalProfileEntity alloc] initWithClient:self];
+}
+
 - (HumanAPIClientMedicalTestResultEntity *)medicalTestResult
 {
     return [[HumanAPIClientMedicalTestResultEntity alloc] initWithClient:self];
@@ -545,6 +550,22 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 {
     return [super initWithClient:client andMasterPath:@"medical/organizations"];
 }
+@end
+
+// MedicalProfile Entity
+@implementation HumanAPIClientMedicalProfileEntity
+
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@""];
+}
+
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+{
+    return [self.client execute:@"medical/profile" onSuccess:success onFailure:failure];
+}
+
 @end
 
 // MedicalTestResult Entity
