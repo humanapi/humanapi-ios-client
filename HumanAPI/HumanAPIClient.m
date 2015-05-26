@@ -179,6 +179,11 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientMedicalTestResultEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientMedicalTimelineEntity *)medicalTimeline
+{
+    return [[HumanAPIClientMedicalTimelineEntity alloc] initWithClient:self];
+}
+
 - (HumanAPIClientMedicalVitalsEntity *)medicalVitals
 {
     return [[HumanAPIClientMedicalVitalsEntity alloc] initWithClient:self];
@@ -564,6 +569,15 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"medical/test_results"];
+}
+@end
+
+// MedicalTimeline Entity
+@implementation HumanAPIClientMedicalTimelineEntity
+
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/timeline"];
 }
 @end
 
