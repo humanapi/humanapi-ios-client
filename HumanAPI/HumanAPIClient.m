@@ -206,6 +206,18 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 
 @end
 
+// AbstractObjectEntity
+@implementation HumanAPIClientAbstractObjectEntity
+
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@""]
+               onSuccess:success onFailure:failure];
+}
+
+@end
+
 // Abstract Measurement Entity
 @implementation HumanAPIClientAbstractMeasurementEntity
 
@@ -435,13 +447,6 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 {
     return [super initWithClient:client andMasterPath:@""];
 }
-
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-{
-    return [self.client execute:@"" onSuccess:success onFailure:failure];
-}
-
 @end
 
 // Location Entity
@@ -465,15 +470,8 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@""];
+    return [super initWithClient:client andMasterPath:@"profile"];
 }
-
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-{
-    [self.client execute:@"profile" onSuccess:success onFailure:failure];
-}
-
 @end
 
 
@@ -557,15 +555,8 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@""];
+    return [super initWithClient:client andMasterPath:@"medical/profile"];
 }
-
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
-{
-    return [self.client execute:@"medical/profile" onSuccess:success onFailure:failure];
-}
-
 @end
 
 // MedicalTestResult Entity

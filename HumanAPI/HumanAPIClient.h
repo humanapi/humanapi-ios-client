@@ -134,10 +134,8 @@ onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Human Entity
-@interface HumanAPIClientHumanEntity : HumanAPIClientAbstractEntity
+@interface HumanAPIClientHumanEntity : HumanAPIClientAbstractObjectEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Location Entity
@@ -151,10 +149,8 @@ onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Profile Entity
-@interface HumanAPIClientProfileEntity : HumanAPIClientAbstractEntity
+@interface HumanAPIClientProfileEntity : HumanAPIClientAbstractObjectEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
 @end
 
 // Sleep Entity
@@ -204,10 +200,8 @@ onFailure:(void (^)(NSError *error))failure;
 @end
 
 // MedicalProfile Entity
-@interface HumanAPIClientMedicalProfileEntity : HumanAPIClientAbstractEntity
+@interface HumanAPIClientMedicalProfileEntity : HumanAPIClientAbstractObjectEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
 @end
 
 // MedicalTestResult Entity
