@@ -203,6 +203,11 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// MedicalVitals Entity
+@interface HumanAPIClientMedicalVitalsEntity : HumanAPIClientAbstractListableEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 // ----  ----  ----  ----
 // CLIENT
 // ----  ----  ----  ----
@@ -247,6 +252,7 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientMedicalMedicationEntity *)medicalMedication;
 - (HumanAPIClientMedicalOrganizationEntity *)medicalOrganization;
 - (HumanAPIClientMedicalTestResultEntity *)medicalTestResult;
+- (HumanAPIClientMedicalVitalsEntity *)medicalVitals;
 @end
 
 @protocol HumanAPIClientDelegate <NSObject>
