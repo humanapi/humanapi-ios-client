@@ -169,6 +169,11 @@ onFailure:(void (^)(NSError *error))failure;
 - (instancetype)initWithClient:(HumanAPIClient *)client;
 @end
 
+// MedicalCCD Entity
+@interface HumanAPIClientMedicalCCDEntity : HumanAPIClientAbstractEntity
+- (instancetype)initWithClient:(HumanAPIClient *)client;
+@end
+
 // MedicalEncounter Entity
 @interface HumanAPIClientMedicalEncounterEntity : HumanAPIClientAbstractListableEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
@@ -257,6 +262,7 @@ onFailure:(void (^)(NSError *error))failure;
 
 
 - (HumanAPIClientMedicalAllergyEntity *)medicalAllergy;
+- (HumanAPIClientMedicalCCDEntity *)medicalCCD;
 - (HumanAPIClientMedicalEncounterEntity *)medicalEncounter;
 - (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization;
 - (HumanAPIClientMedicalIssueEntity *)medicalIssue;

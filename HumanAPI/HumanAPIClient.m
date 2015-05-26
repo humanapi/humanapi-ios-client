@@ -139,6 +139,11 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
     return [[HumanAPIClientMedicalAllergyEntity alloc] initWithClient:self];
 }
 
+- (HumanAPIClientMedicalCCDEntity *)medicalCCD
+{
+    return [[HumanAPIClientMedicalCCDEntity alloc] initWithClient:self];
+}
+
 - (HumanAPIClientMedicalEncounterEntity *)medicalEncounter
 {
     return [[HumanAPIClientMedicalEncounterEntity alloc] initWithClient:self];
@@ -418,13 +423,13 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
-    return [super initWithClient:client andMasterPath:@""];
+    return [super initWithClient:client andMasterPath:@"genetic/traits"];
 }
 
 - (void)listWithOnSuccess:(void (^)(id responseObject))success
                 onFailure:(void (^)(NSError *error))failure;
 {
-    [self.client execute:@"genetic/traits" onSuccess:success onFailure:failure];
+    [self.client execute:self.masterPath onSuccess:success onFailure:failure];
 }
 
 @end
@@ -504,6 +509,29 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 - (instancetype)initWithClient:(HumanAPIClient *)client
 {
     return [super initWithClient:client andMasterPath:@"medical/allergies"];
+}
+@end
+
+// MedicalCCD Entity
+@implementation HumanAPIClientMedicalCCDEntity
+
+- (instancetype)initWithClient:(HumanAPIClient *)client
+{
+    return [super initWithClient:client andMasterPath:@"medical/ccds"];
+}
+
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure;
+{
+    [self.client execute:self.masterPath onSuccess:success onFailure:failure];
+}
+
+- (void)rawCCD:(NSString *)objId
+     onSuccess:(void (^)(id responseObject))success
+     onFailure:(void (^)(NSError *error))failure;
+{
+    NSString *rawPath = [NSString stringWithFormat:@"%@/%@/%@", self.masterPath, objId, @"raw"];
+    [self.client execute:rawPath onSuccess:success onFailure:failure];
 }
 @end
 
