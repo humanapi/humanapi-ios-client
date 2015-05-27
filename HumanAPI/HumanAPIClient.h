@@ -188,6 +188,11 @@ onFailure:(void (^)(NSError *error))failure;
 // MedicalCCD Entity
 @interface HumanAPIClientMedicalCCDEntity : HumanAPIClientAbstractEntity
 - (instancetype)initWithClient:(HumanAPIClient *)client;
+- (void)listWithOnSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure;
+- (void)rawCCD:(NSString *)objId
+     onSuccess:(void (^)(id responseObject))success
+     onFailure:(void (^)(NSError *error))failure;
 @end
 
 // MedicalEncounter Entity
