@@ -563,14 +563,6 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 {
     [self.client execute:self.masterPath onSuccess:success onFailure:failure];
 }
-
-- (void)rawCCD:(NSString *)objId
-     onSuccess:(void (^)(id responseObject))success
-     onFailure:(void (^)(NSError *error))failure
-{
-    NSString *rawPath = [NSString stringWithFormat:@"%@/%@/%@", self.masterPath, objId, @"raw"];
-    [self.client execute:rawPath onSuccess:success onFailure:failure];
-}
 @end
 
 // MedicalEncounter Entity
