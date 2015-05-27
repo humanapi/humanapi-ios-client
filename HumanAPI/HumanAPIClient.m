@@ -220,7 +220,7 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 @implementation HumanAPIClientAbstractObjectEntity
 
 - (void)getWithOnSuccess:(void (^)(id responseObject))success
-               onFailure:(void (^)(NSError *error))failure;
+               onFailure:(void (^)(NSError *error))failure
 {
     [self.client execute:[self.masterPath stringByAppendingString:@""]
                onSuccess:success onFailure:failure];
@@ -242,6 +242,15 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
                     onFailure:(void (^)(NSError *error))failure
 {
     [self.client execute:[self.masterPath stringByAppendingString:@"/readings"]
+               onSuccess:success onFailure:failure];
+}
+
+- (void)readingsWithParameters:(NSMutableDictionary *)params
+                  onSuccess:(void (^)(id responseObject))success
+                  onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@"/readings"]
+          withParameters: params
                onSuccess:success onFailure:failure];
 }
 
@@ -284,6 +293,16 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
                onSuccess:success onFailure:failure];
 }
 
+- (void)listWithParameters:(NSMutableDictionary *)params
+                onSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@""]
+               withParameters: params
+               onSuccess:success onFailure:failure];
+}
+
+
 - (void)get:(NSString *)objId
   onSuccess:(void (^)(id responseObject))success
   onFailure:(void (^)(NSError *error))failure
@@ -302,6 +321,15 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
                 onFailure:(void (^)(NSError *error))failure
 {
     [self.client execute:[self.masterPath stringByAppendingString:@""]
+               onSuccess:success onFailure:failure];
+}
+
+- (void)listWithParameters:(NSMutableDictionary *)params
+                onSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@""]
+               withParameters: params
                onSuccess:success onFailure:failure];
 }
 
@@ -364,6 +392,16 @@ static NSString * const API_ROOT = @"https://api.humanapi.co/v1/human";
 {
     [self.client execute:[self.masterPath stringByAppendingString:@"/summaries"]
                onSuccess:success onFailure:failure];
+}
+
+- (void)summariesWithParameters:(NSMutableDictionary *)params
+                onSuccess:(void (^)(id responseObject))success
+                onFailure:(void (^)(NSError *error))failure
+{
+    [self.client execute:[self.masterPath stringByAppendingString:@"/summaries"]
+          withParameters: params
+               onSuccess:success
+               onFailure:failure];
 }
 
 @end

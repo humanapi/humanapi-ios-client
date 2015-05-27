@@ -21,6 +21,13 @@
                  andMasterPath:(NSString *)masterPath;
 @end
 
+
+@interface HumanAPIClientAbstractObjectEntity: HumanAPIClientAbstractEntity
+
+- (void)getWithOnSuccess:(void (^)(id responseObject))success
+               onFailure:(void (^)(NSError *error))failure;
+
+@end
 /**
  * Base class for data types that organized in lists with
  * possibility to access details of each object from the same end point.
@@ -31,6 +38,9 @@
 @interface HumanAPIClientAbstractListableEntity : HumanAPIClientAbstractEntity
 - (void)listWithOnSuccess:(void (^)(id responseObject))success
                 onFailure:(void (^)(NSError *error))failure;
+- (void)listWithParameters:(NSMutableDictionary *)params
+                 onSuccess:(void (^)(id responseObject))success
+                 onFailure:(void (^)(NSError *error))failure;
 - (void)get:(NSString *)objId
   onSuccess:(void (^)(id responseObject))success
   onFailure:(void (^)(NSError *error))failure;
@@ -65,6 +75,9 @@
 @interface HumanAPIClientAbstractPeriodicalEntity : HumanAPIClientAbstractEntity
 - (void)listWithOnSuccess:(void (^)(id responseObject))success
               onFailure:(void (^)(NSError *error))failure;
+- (void)listWithParameters:(NSMutableDictionary *)params
+                 onSuccess:(void (^)(id responseObject))success
+                 onFailure:(void (^)(NSError *error))failure;
 - (void)get:(NSString *)objId
 onSuccess:(void (^)(id responseObject))success
 onFailure:(void (^)(NSError *error))failure;
@@ -83,6 +96,9 @@ onFailure:(void (^)(NSError *error))failure;
           onFailure:(void (^)(NSError *error))failure;
 - (void)summariesWithOnSuccess:(void (^)(id responseObject))success
               onFailure:(void (^)(NSError *error))failure;
+- (void)summariesWithParameters:(NSMutableDictionary *)params
+                      onSuccess:(void (^)(id responseObject))success
+                      onFailure:(void (^)(NSError *error))failure;
 
 @end
 
