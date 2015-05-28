@@ -21,18 +21,16 @@ typedef enum {
 NSString *HumanAPIAuthURL  = @"https://user.humanapi.co/oauth/authorize";
 NSString *HumanAPITokenURL = @"https://user.humanapi.co/oauth/token";
 NSString *redirectURL = @"https://oauth/";
-NSString *HumanAPIConnectTokensURL = @"https://user.humanapi.co/v1/connect/tokens";
 
 // geometry vars
 CGFloat NavbarHeight = 54;
 
 
 /** Initialization of the instance */
-- (id)initWithClientID:(NSString *)cliendID andClientSecret:(NSString *)clientSecret
+- (id)initWithClientID:(NSString *)cliendID
 {
     self = [super init];
     self.clientID = cliendID;
-    self.clientSecret = clientSecret;
     return self;
 }
 
@@ -41,11 +39,11 @@ CGFloat NavbarHeight = 54;
 {
     [super viewDidLoad];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-    
+
     // Geometry calculations
     int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
     int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
-    
+
     // UIWebView init
     self.webView = [[UIWebView alloc] initWithFrame:
                     CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
@@ -67,7 +65,7 @@ CGFloat NavbarHeight = 54;
     self.popupWebView.tag = wvtPopup;
     [self.view addSubview:self.popupWebView];
 
-    
+
     // Navigation bar
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
                                CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
@@ -81,7 +79,7 @@ CGFloat NavbarHeight = 54;
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
-    
+
     // keyboard hide handler
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
@@ -141,7 +139,7 @@ CGFloat NavbarHeight = 54;
         [self dismiss];
         return NO;
     }
-    
+
     // Popup handling
     NSString *url = reqStr;
     if ([url hasPrefix:@"https://close-popup-with-message"]) {
@@ -264,33 +262,20 @@ CGFloat NavbarHeight = 54;
     }
     NSLog(@"found humanId=%@, sessionToken=%@", humanId, sessionToken);
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *postData = @{@"clientId": self.clientID,
-                               @"clientSecret": self.clientSecret,
-                               @"humanId": humanId,
-                               @"sessionToken": sessionToken};
-    [manager POST:HumanAPIConnectTokensURL parameters:postData
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              //NSLog(@"JSON: %@", responseObject);
-              NSDictionary *res = (NSDictionary *)responseObject;
-              NSLog(@"accessToken = %@", res[@"accessToken"]);
-              [self dismiss];
-              [self fireConnectSuccessWithData:res];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@", error);
-              [self dismiss];
-              [self fireConnectFailureWithError:@"error while requesting connect `accessToken`"];
-          }];
+    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
+    result[@"humanId"] = humanId;
+    result[@"sessionToken"] = sessionToken;
+
+    [self fireConnectSuccessWithData: result]
+
 }
 
 /** Calls connect success method in delegate */
-- (void)fireConnectSuccessWithData:(NSDictionary *)data
+- (void)fireConnectSuccessWithData:(NSMutableDictionary *)data
 {
     id<HumanAPINotifications> delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(onConnectSuccess:accessToken:publicToken:)]) {
-        [delegate onConnectSuccess:data[@"humanId"] accessToken:data[@"accessToken"]
-                       publicToken:data[@"publicToken"]];
+    if ([delegate respondsToSelector:@selector(onConnectSuccess:sessionTokenObject:)]) {
+        [delegate onConnectSuccess:data[@"humanId"] sessionTokenObject:data[@"sessionToken"]];
     }
 }
 
@@ -307,12 +292,12 @@ CGFloat NavbarHeight = 54;
 - (NSDictionary *)parseQueryString:(NSString *)query {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6];
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
-    
+
     for (NSString *pair in pairs) {
         NSArray *elements = [pair componentsSeparatedByString:@"="];
         NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
+
         [dict setObject:val forKey:key];
     }
     return dict;
