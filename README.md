@@ -10,45 +10,49 @@
   * 'AFNetworking', '~> 2.2'
   * 'NXOAuth2Client', '~> 1.2.2'
 3. Launch HumanConnect Window
-```
-  HumanAPIViewController *hvc = [[HumanAPIViewController alloc] initWithClientID:myClientID];
+```objectivec
+  NSString *myClientID = @"<YOUR_CLIENTID>"; //From the Developer Portal
+  NSString *authURL = @"https://yourdomain.com/endpoint/to/send/sessionTokenObject"; //To finalize authentication on your server
+
+  HumanAPIViewController *hvc = [[HumanAPIViewController alloc] initWithClientID:myClientID andAuthURL:authURL];
   hvc.delegate = self;
   [self presentViewController:hvc animated:YES completion:nil];
 
 ```
 4. Start flow for new or existing user
-```
+```objectivec
 
   // new user
   [hvc startConnectFlowForNewUser:@"test_user5"];
   // existing user
   //[hvc startConnectFlowFor:@"test_user4" andPublicToken:@"..."];
 ```
-5. Implement `onConnectSuccess`
-
-```
-  /** Connect success handler */
-  - (void)onConnectSuccess:(NSString *)humanId sessionTokenObject:(NSString *)sessionTokenObject
-  {
-      NSLog(@"Connect success: humanId=%@", humanId);
-      NSLog(@"..sessionTokenObject=%@", sessionTokenObject);
-
-      //Finish The Auth Flow
-
-  }
-```
-To Finish Auth Flow
-   1. POST the `sessionTokenObject` as is to your server
-   2. Sign it with `clientSecret`
-   3. POST signed `sessionTokenObject` from your server to Human API Tokens Endpoint
+5. Finish Auth Flow (on your server)
+   * Receive sessionTokenObject to previously specified `authURL`
+   * Sign it with `clientSecret`
+   * POST signed `sessionTokenObject` from your server to Human API Tokens Endpoint
    (https://user.humanapi.co/v1/connect/publictokens)
-   4. Retrieve and store `accessToken` and `publicToken` on your server for use to query user data from Human API
+   * Retrieve and store `accessToken` and `publicToken` on your server for use to query user data from Human API
 
    See the detailed guide here: (http://hub.humanapi.co/v1.0/docs/integrating-human-connect)
 
-6. Implement `onConnectFailure`
+6. Implement `onConnectSuccess`
 
+```objectivec
+  /** Connect success handler */
+  - (void)onConnectSuccess:(NSString *)humanId
+  {
+      NSLog(@"Connect success!  humanId=%@", humanId);
+
+      //Notify user of success
+      //Finish auth flow on your server
+
+  }
 ```
+
+7. Implement `onConnectFailure`
+
+```objectivec
   /** Connect failure handler */
   - (void)onConnectFailure:(NSString *)error
   {

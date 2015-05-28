@@ -27,10 +27,11 @@ CGFloat NavbarHeight = 54;
 
 
 /** Initialization of the instance */
-- (id)initWithClientID:(NSString *)cliendID
+- (id)initWithClientID:(NSString *)cliendID andAuthURL:(NSString *)authURL
 {
     self = [super init];
     self.clientID = cliendID;
+    self.authURL = authURL;
     return self;
 }
 
@@ -262,20 +263,33 @@ CGFloat NavbarHeight = 54;
     }
     NSLog(@"found humanId=%@, sessionToken=%@", humanId, sessionToken);
 
-    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    result[@"humanId"] = humanId;
-    result[@"sessionToken"] = sessionToken;
 
-    [self fireConnectSuccessWithData: result]
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *postData = @{@"clientId": self.clientID,
+                               @"humanId": humanId,
+                               @"sessionToken": sessionToken};
+
+    [manager POST:self.authURL parameters:postData
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              //NSLog(@"JSON: %@", responseObject);
+              NSDictionary *res = (NSDictionary *)responseObject;
+              [self dismiss];
+              [self fireConnectSuccessWithData:humanId];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"Error: %@", error);
+              [self dismiss];
+              [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
+          }];
 
 }
 
 /** Calls connect success method in delegate */
-- (void)fireConnectSuccessWithData:(NSMutableDictionary *)data
+- (void)fireConnectSuccessWithData:(NSString *)humanId
 {
     id<HumanAPINotifications> delegate = self.delegate;
     if ([delegate respondsToSelector:@selector(onConnectSuccess:sessionTokenObject:)]) {
-        [delegate onConnectSuccess:data[@"humanId"] sessionTokenObject:data[@"sessionToken"]];
+        [delegate onConnectSuccess:humanId;
     }
 }
 
