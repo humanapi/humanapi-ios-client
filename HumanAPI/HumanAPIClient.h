@@ -180,68 +180,6 @@ onFailure:(void (^)(NSError *error))failure;
 @end
 
 
-// MedicalAllergy Entity
-@interface HumanAPIClientMedicalAllergyEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalCCD Entity
-@interface HumanAPIClientMedicalCCDEntity : HumanAPIClientAbstractEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-- (void)listWithOnSuccess:(void (^)(id responseObject))success
-                onFailure:(void (^)(NSError *error))failure;
-@end
-
-// MedicalEncounter Entity
-@interface HumanAPIClientMedicalEncounterEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalImmunization Entity
-@interface HumanAPIClientMedicalImmunizationEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalIssue Entity
-@interface HumanAPIClientMedicalIssueEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalMedication Entity
-@interface HumanAPIClientMedicalMedicationEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalNarrative Entity
-@interface HumanAPIClientMedicalNarrativeEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalOrganization Entity
-@interface HumanAPIClientMedicalOrganizationEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalProfile Entity
-@interface HumanAPIClientMedicalProfileEntity : HumanAPIClientAbstractObjectEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalTestResult Entity
-@interface HumanAPIClientMedicalTestResultEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalTimeline Entity
-@interface HumanAPIClientMedicalTimelineEntity : HumanAPIClientAbstractObjectEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
-// MedicalVitals Entity
-@interface HumanAPIClientMedicalVitalsEntity : HumanAPIClientAbstractListableEntity
-- (instancetype)initWithClient:(HumanAPIClient *)client;
-@end
-
 // ----  ----  ----  ----
 // CLIENT
 // ----  ----  ----  ----
@@ -277,20 +215,6 @@ onFailure:(void (^)(NSError *error))failure;
 - (HumanAPIClientProfileEntity *)profile;
 - (HumanAPIClientLocationEntity *)sleep;
 - (HumanAPIClientWeightEntity *)weight;
-
-
-- (HumanAPIClientMedicalAllergyEntity *)medicalAllergy;
-- (HumanAPIClientMedicalCCDEntity *)medicalCCD;
-- (HumanAPIClientMedicalEncounterEntity *)medicalEncounter;
-- (HumanAPIClientMedicalImmunizationEntity *)medicalImmunization;
-- (HumanAPIClientMedicalIssueEntity *)medicalIssue;
-- (HumanAPIClientMedicalMedicationEntity *)medicalMedication;
-- (HumanAPIClientMedicalNarrativeEntity *)medicalNarrative;
-- (HumanAPIClientMedicalOrganizationEntity *)medicalOrganization;
-- (HumanAPIClientMedicalProfileEntity *)medicalProfile;
-- (HumanAPIClientMedicalTestResultEntity *)medicalTestResult;
-- (HumanAPIClientMedicalTimelineEntity *)medicalTimeline;
-- (HumanAPIClientMedicalVitalsEntity *)medicalVitals;
 @end
 
 @protocol HumanAPIClientDelegate <NSObject>
