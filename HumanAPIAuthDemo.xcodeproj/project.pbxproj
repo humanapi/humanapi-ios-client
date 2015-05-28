@@ -14,8 +14,8 @@
 		2747B2D71B17C9F100D78BA0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2D61B17C9F100D78BA0 /* Images.xcassets */; };
 		2747B2DA1B17C9F100D78BA0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2D81B17C9F100D78BA0 /* LaunchScreen.xib */; };
 		2747B2E61B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2747B2E51B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m */; };
-		2747B2F21B17CB3C00D78BA0 /* HumanConnect in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2F11B17CB3C00D78BA0 /* HumanConnect */; };
 		2747B2F81B17CB6700D78BA0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2F61B17CB6700D78BA0 /* Podfile */; };
+		2747B3021B17D8B800D78BA0 /* HumanAPIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2747B3011B17D8B800D78BA0 /* HumanAPIViewController.m */; };
 		FCD80A1D85E89F7D3FD9E082 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF89F59C468B599D86E4747 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +43,9 @@
 		2747B2DF1B17C9F100D78BA0 /* HumanAPIAuthDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HumanAPIAuthDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2747B2E41B17C9F100D78BA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2747B2E51B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HumanAPIAuthDemoTests.m; sourceTree = "<group>"; };
-		2747B2F11B17CB3C00D78BA0 /* HumanConnect */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HumanConnect; sourceTree = "<group>"; };
 		2747B2F61B17CB6700D78BA0 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		2747B3001B17D8B800D78BA0 /* HumanAPIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanAPIViewController.h; sourceTree = "<group>"; };
+		2747B3011B17D8B800D78BA0 /* HumanAPIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumanAPIViewController.m; sourceTree = "<group>"; };
 		4EF89F59C468B599D86E4747 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		67477BF899A3DFD6887BB6FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F6052F443E93DECA7BC740A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		2747B2BD1B17C9F100D78BA0 = {
 			isa = PBXGroup;
 			children = (
-				2747B2F11B17CB3C00D78BA0 /* HumanConnect */,
 				2747B2C81B17C9F100D78BA0 /* HumanAPIAuthDemo */,
 				2747B2E21B17C9F100D78BA0 /* HumanAPIAuthDemoTests */,
 				2747B2C71B17C9F100D78BA0 /* Products */,
@@ -94,6 +94,8 @@
 		2747B2C81B17C9F100D78BA0 /* HumanAPIAuthDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2747B3001B17D8B800D78BA0 /* HumanAPIViewController.h */,
+				2747B3011B17D8B800D78BA0 /* HumanAPIViewController.m */,
 				2747B2CD1B17C9F100D78BA0 /* AppDelegate.h */,
 				2747B2CE1B17C9F100D78BA0 /* AppDelegate.m */,
 				2747B2D01B17C9F100D78BA0 /* ViewController.h */,
@@ -235,7 +237,6 @@
 				2747B2D51B17C9F100D78BA0 /* Main.storyboard in Resources */,
 				2747B2DA1B17C9F100D78BA0 /* LaunchScreen.xib in Resources */,
 				2747B2D71B17C9F100D78BA0 /* Images.xcassets in Resources */,
-				2747B2F21B17CB3C00D78BA0 /* HumanConnect in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2747B2D21B17C9F100D78BA0 /* ViewController.m in Sources */,
+				2747B3021B17D8B800D78BA0 /* HumanAPIViewController.m in Sources */,
 				2747B2CF1B17C9F100D78BA0 /* AppDelegate.m in Sources */,
 				2747B2CC1B17C9F100D78BA0 /* main.m in Sources */,
 			);
