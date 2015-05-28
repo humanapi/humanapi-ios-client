@@ -18,9 +18,6 @@ typedef enum {
     wvtPopup = 2
 } WebViewType;
 
-NSString *HumanAPIAuthURL  = @"https://user.humanapi.co/oauth/authorize";
-NSString *HumanAPITokenURL = @"https://user.humanapi.co/oauth/token";
-NSString *redirectURL = @"https://oauth/";
 
 // geometry vars
 CGFloat NavbarHeight = 54;
@@ -131,7 +128,7 @@ CGFloat NavbarHeight = 54;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *reqStr = request.URL.absoluteString;
-    NSLog(@"req = %@ : %d", reqStr, navigationType);
+    NSLog(@"req = %@ : %ld", reqStr, (long)navigationType);
     if ([reqStr hasPrefix:@"https://connect-token"]) {
         [self processConnectTokenFrom:request.URL];
         return NO;
@@ -274,7 +271,7 @@ CGFloat NavbarHeight = 54;
               //NSLog(@"JSON: %@", responseObject);
               NSDictionary *res = (NSDictionary *)responseObject;
               [self dismiss];
-              [self fireConnectSuccessWithData:humanId];
+              [self fireConnectSuccessWithPublicToken:res[@"publicToken"]];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"Error: %@", error);
@@ -285,11 +282,11 @@ CGFloat NavbarHeight = 54;
 }
 
 /** Calls connect success method in delegate */
-- (void)fireConnectSuccessWithData:(NSString *)humanId
+- (void)fireConnectSuccessWithPublicToken:(NSString *)publicToken
 {
     id<HumanAPINotifications> delegate = self.delegate;
-    if ([delegate respondsToSelector:@selector(onConnectSuccess:sessionTokenObject:)]) {
-        [delegate onConnectSuccess:humanId;
+    if ([delegate respondsToSelector:@selector(onConnectSuccess:)]) {
+        [delegate onConnectSuccess:publicToken];
     }
 }
 
