@@ -1,1 +1,5 @@
 .DS_Store
+
+Pods/
+HumanAPIAuthDemo.xcworkspace/xcuserdata/*
+xcuserdata
