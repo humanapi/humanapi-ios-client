@@ -6,9 +6,11 @@
 ## How To Use
 
 1. Copy the `HumanConnect` folder and place it in the base level of your project directory.
-2. Run `pod install` in your project directory to install the necessary dependencies
-  * 'AFNetworking', '~> 2.2'
-  * 'NXOAuth2Client', '~> 1.2.2'
+2. Install necessary dependencies via CocoaPods
+  * Add the following to your Podfile (or [create a new one](https://guides.cocoapods.org/using/the-podfile.html))
+    * `pod 'AFNetworking', '~> 2.2'`
+    * `pod 'NXOAuth2Client', '~> 1.2.2'`
+  * Run `pod install` in you project directory
 3. Launch Human Connect Window
   ```objectivec
     NSString *myClientID = @"<YOUR_CLIENTID>"; //From the Developer Portal
