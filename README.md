@@ -35,10 +35,10 @@
    * Receive sessionTokenObject to previously specified `authURL`
    * Sign it with `clientSecret`
    * POST signed `sessionTokenObject` from your server to Human API Tokens Endpoint
-   (https://user.humanapi.co/v1/connect/publictokens)
+   `https://user.humanapi.co/v1/connect/publictokens`
    * Retrieve and store `accessToken` and `publicToken` on your server for use to query user data from Human API
 
-   See the detailed guide here: (http://hub.humanapi.co/v1.0/docs/integrating-human-connect)
+   See the detailed guide here: [Integrating Human Connect](http://hub.humanapi.co/v1.0/docs/integrating-human-connect)
 
 6. Implement `onConnectSuccess`
   ```objectivec
