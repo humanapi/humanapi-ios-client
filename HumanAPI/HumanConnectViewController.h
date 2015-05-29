@@ -1,9 +1,6 @@
 //
-//  HumanAPIViewController.h
-//  HumanAPIDemo
-//
-//  Created by Yuri Subach on 05/06/14.
-//  Copyright (c) 2014 Yuri Subach. All rights reserved.
+//  HumanConnectViewController.h
+//  Copyright (c) 2014 Human API. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -24,7 +21,7 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 /**
  * HumanAPI UI component
  */
-@interface HumanAPIViewController : UIViewController<UIWebViewDelegate>
+@interface HumanConnectViewController : UIViewController<UIWebViewDelegate>
 
 @property (nonatomic, weak) id <HumanAPINotifications> delegate;
 @property (nonatomic, retain) UIWebView *webView;
