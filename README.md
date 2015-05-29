@@ -18,27 +18,28 @@
 
 4. Launch Human Connect Window
   ```objectivec
-    NSString *myClientID = @"<YOUR_CLIENTID>"; //From the Developer Portal
-    //URL to send sessionTokenObject (finalize authentication on your server)
-    NSString *authURL = @"https://yourdomain.com/endpoint/to/send/sessionTokenObject";
+  NSString *myClientID = @"<YOUR_CLIENTID>"; //From the Developer Portal
+  //URL to send sessionTokenObject (finalize authentication on your server)
+  NSString *authURL = @"https://yourdomain.com/endpoint/to/send/sessionTokenObject";
 
-    HumanConnectViewController *hcvc = [[HumanConnectViewController alloc] initWithClientID:myClientID
-                                                                        andAuthURL:authURL];
-    hcvc.delegate = self;
-    [self presentViewController:hcvc animated:YES completion:nil];
+  HumanConnectViewController *hcvc = [[HumanConnectViewController alloc] initWithClientID:myClientID
+                                                                      andAuthURL:authURL];
+  hcvc.delegate = self;
+  [self presentViewController:hcvc animated:YES completion:nil];
 
   ```
 5. Start flow for new or existing user
+
   ```objectivec
-    //If you have a publicToken for the user, supply it to Human Connect on launch
-    //localUser refers to the current logged in user w/ email and publicToken
-    if(localUser.publicToken !=nil){
-      //existing HumanAPI User
-      [hcvc startConnectFlowFor:localUser.email andPublicToken:localUser.publicToken];
-    }else{
-      // new Human API user
-      [hcvc startConnectFlowForNewUser:locaUser.email];
-    }
+  //If you have a publicToken for the user, supply it to Human Connect on launch
+  //localUser refers to the current logged in user w/ email and publicToken
+  if(localUser.publicToken !=nil){
+    //existing HumanAPI User
+    [hcvc startConnectFlowFor:localUser.email andPublicToken:localUser.publicToken];
+  }else{
+    // new Human API user
+    [hcvc startConnectFlowForNewUser:locaUser.email];
+  }
   ```
 6. Finish authentication flow on your server
    * Receive sessionTokenObject to previously specified `authURL`
