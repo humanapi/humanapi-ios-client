@@ -31,7 +31,7 @@
 5. Start flow for new or existing user
   ```objectivec
     //If you have a publicToken for the user, supply it to Human Connect on launch
-    //'localUser' refers to the current logged in user w/ email and publicToken
+    //localUser refers to the current logged in user w/ email and publicToken
     if(localUser.publicToken !=nil){
       //existing HumanAPI User
       [hcvc startConnectFlowFor:localUser.email andPublicToken:localUser.publicToken];
@@ -47,7 +47,7 @@
    `https://user.humanapi.co/v1/connect/publictokens`
    * Retrieve and store `accessToken` and `publicToken` on your server for use to query user data from Human API
    * Return status `200 OK` with payload containing `publicToken` to store on device
-   ```json
+   ```
    {
      publicToken: "2767d6oea95f4c3db8e8f3d0a1238302"
    }
