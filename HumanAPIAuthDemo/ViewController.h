@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HumanAPIViewController.h"
+#import "HumanConnectViewController.h"
 
 
 @interface ViewController : UIViewController  <HumanAPINotifications>

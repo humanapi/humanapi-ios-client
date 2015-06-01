@@ -1,16 +1,13 @@
 //
-//  HumanAPIViewController.m
-//  HumanAPIDemo
-//
-//  Created by Yuri Subach on 05/06/14.
-//  Copyright (c) 2014 Yuri Subach. All rights reserved.
+//  HumanConnectViewController.m
+//  Copyright (c) 2015 HumanAPI. All rights reserved.
 //
 
-#import "HumanAPIViewController.h"
+#import "HumanConnectViewController.h"
 #import "NXOAuth2.h"
 #import "AFNetworking.h"
 
-@implementation HumanAPIViewController
+@implementation HumanConnectViewController
 
 /** Definitions for type tags */
 typedef enum {

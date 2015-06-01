@@ -25,15 +25,16 @@
 }
 - (IBAction)launchHumanConnect:(id)sender {
     
-    NSString *myClientID = @"659e9bd58ec4ee7fa01bc6b4627cb37e5c13ec21"; //From the Developer Portal
+    NSString *myClientID = @"5ed10aa5099074ffb97f719ceb5bb0ef3c519c42"; //From the Developer Portal
     //URL to send sessionTokenObject (finalize authentication on your server)
-    NSString *authURL = @"http://demo1235462.mockable.io/sessionToken";
+    NSString *authURL = @"http://localhost:3000/sessionToken";
     
-    HumanAPIViewController *hvc = [[HumanAPIViewController alloc] initWithClientID:myClientID
+    
+    HumanConnectViewController *hcvc = [[HumanConnectViewController alloc] initWithClientID:myClientID
                                                                         andAuthURL:authURL];
-    hvc.delegate = self;
-    [self presentViewController:hvc animated:YES completion:nil];
-    [hvc startConnectFlowForNewUser:@"test_usery"];
+    hcvc.delegate = self;
+    [self presentViewController:hcvc animated:YES completion:nil];
+    [hcvc startConnectFlowForNewUser:@"texst_dsusss1ser15@hapi.co"];
     
 }
 
