@@ -25,7 +25,7 @@
 }
 - (IBAction)launchHumanConnect:(id)sender {
     
-    NSString *myClientID = @"5ed10aa5099074ffb97f719ceb5bb0ef3c519c42"; //From the Developer Portal
+    NSString *myClientID = @"<Your-Client-ID>"; //From the Developer Portal
     //URL to send sessionTokenObject (finalize authentication on your server)
     NSString *authURL = @"http://localhost:3000/sessionToken";
     
@@ -34,7 +34,19 @@
                                                                         andAuthURL:authURL];
     hcvc.delegate = self;
     [self presentViewController:hcvc animated:YES completion:nil];
+    
+    //For demo purposes -- with local user accounts, use code below instead
     [hcvc startConnectFlowForNewUser:@"texst_dsusss1ser15@hapi.co"];
+    
+    //If you have a publicToken for the user, supply it to Human Connect on launch
+    //localUser refers to the current logged in user w/ email and publicToken
+//    if(localUser.publicToken !=nil){
+//        //existing HumanAPI User
+//        [hcvc startConnectFlowFor:localUser.email andPublicToken:localUser.publicToken];
+//    }else{
+//        // new Human API user
+//        [hcvc startConnectFlowForNewUser:locaUser.email];
+//    }
     
 }
 
@@ -45,7 +57,7 @@
     NSLog(@"Connect success!  publicToken=\n %@", data);
     
     //Notify user of success
-    //Finish auth flow on your server
+    //Save publicToken with local user for subsequent Human Connect launches
     
 }
 
