@@ -15,6 +15,7 @@ typedef enum {
     wvtPopup = 2
 } WebViewType;
 
+NSString *HumanAPIConnectURL = @"https://connect.humanapi.co";
 
 // geometry vars
 CGFloat NavbarHeight = 54;
@@ -197,45 +198,54 @@ CGFloat NavbarHeight = 54;
  */
 - (void)startConnectFlowForNewUser:(NSString *)userId
 {
-    [self startConnectFlow:[NSString stringWithFormat:
-                            @"clientId:     '%@', \n"
-                            " clientUserId: '%@', \n", self.clientID, userId]];
+    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys:
+                      self.clientID, @"clientId", userId, @"clientUserId", nil]];
 }
 
 - (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken
 {
-    [self startConnectFlow:[NSString stringWithFormat:
-                            @"clientUserId: '%@', \n"
-                            " publicToken:  '%@', \n", userId, publicToken]];
+    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys: userId, @"clientUserId", publicToken, @"publicToken", nil]];
 }
 
 /** Connect flow entry point implementation */
-- (void)startConnectFlow:(NSString *)params
+- (void)loadConnect:(NSDictionary *)params
 {
     self.flowType = FlowTypeConnect;
-    //NSString *baseURL = @"http://localhost:4000";
-    NSString *baseURL = @"https://connect.humanapi.co";
-    NSString *html = [NSString stringWithFormat:@"<html> \n"
-                      "<body onload=\" \n"
-                      "HumanConnect.open({ \n"
-                      //"    iframe: true, \n"
-                      "    language: 'en', \n"
-                      "%@" // params here
-                      "    _baseURL: '%@', \n"
-                      "    finish: function(err, obj) { \n"
-                      "        window.location = 'https://connect-token?' + \n"
-                      "            'sessionToken=' + obj.sessionToken + \n"
-                      "            '&humanId=' + obj.humanId; \n"
-                      "    }, \n"
-                      "    close: function() { \n"
-                      "        window.location = 'https://connect-closed'; \n"
-                      "    } \n"
-                      "}); \n"
-                      "\"> \n"
-                      "<script src='%@/connect.js'></script> \n"
-                      "</body></html>", params, baseURL, baseURL];
-    [self.webView loadHTMLString:html baseURL:nil];
+    NSURL *url = [self connectUrlForParams:params];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30];
+
+    [self.webView loadRequest:request];
 }
+
+/** Returns a Connect URL for new or existing users */
+- (NSURL *)connectUrlForParams:(NSDictionary *)params {
+    NSLog(@"params: %@", params);
+    NSString *finishUrl = @"https://connect-token";
+    NSString *closeUrl = @"https://connect-closed";
+    NSString *fullURL;
+
+    if ([params objectForKey:@"publicToken"]) {
+        fullURL = [NSString stringWithFormat:@"%@/?clientUserId=%@&publicToken=%@&finishUrl=%@&closeUrl=%@",
+                   HumanAPIConnectURL,
+                   [params objectForKey:@"clientUserId"],
+                   [params objectForKey:@"publicToken"],
+                   finishUrl,
+                   closeUrl];
+    } else {
+        fullURL = [NSString stringWithFormat:@"%@/?clientId=%@&clientUserId=%@&finishUrl=%@&closeUrl=%@",
+                   HumanAPIConnectURL,
+                   [params objectForKey:@"clientId"],
+                   [params objectForKey:@"clientUserId"],
+                   finishUrl,
+                   closeUrl];
+    }
+
+    NSURL *url = [NSURL URLWithString:fullURL];
+    return url;
+}
+
 
 /** Process data returned from JS on connect flow */
 - (void)processConnectTokenFrom:(NSURL *)url
