@@ -15,6 +15,7 @@ typedef enum {
     wvtPopup = 2
 } WebViewType;
 
+NSString *HumanAPIConnectURL = @"https://staging-connect.humanapi.co";
 
 // geometry vars
 CGFloat NavbarHeight = 54;
@@ -34,21 +35,21 @@ CGFloat NavbarHeight = 54;
 {
     [super viewDidLoad];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
+    
     // Geometry calculations
     int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
     int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
-
+    
     // UIWebView init
     self.webView = [[UIWebView alloc] initWithFrame:
                     CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
-                                       UIViewAutoresizingFlexibleHeight);
+                                     UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
     self.webView.tag = wvtMain;
     [self.view addSubview:self.webView];
-
+    
     // Popup UIWebView init
     self.popupWebView = [[UIWebView alloc] initWithFrame:
                          CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
@@ -59,8 +60,8 @@ CGFloat NavbarHeight = 54;
     self.popupWebView.hidden = YES;
     self.popupWebView.tag = wvtPopup;
     [self.view addSubview:self.popupWebView];
-
-
+    
+    
     // Navigation bar
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
                                CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
@@ -74,7 +75,7 @@ CGFloat NavbarHeight = 54;
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
-
+    
     // keyboard hide handler
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
@@ -134,7 +135,7 @@ CGFloat NavbarHeight = 54;
         [self dismiss];
         return NO;
     }
-
+    
     // Popup handling
     NSString *url = reqStr;
     if ([url hasPrefix:@"https://close-popup-with-message"]) {
@@ -161,7 +162,7 @@ CGFloat NavbarHeight = 54;
 }
 
 /** Post message from URL to main view.
-    URL format: https://close-popup-with-message?[message] */
+ URL format: https://close-popup-with-message?[message] */
 - (void)postMessageFromUrl:(NSString *)url
 {
     NSArray *parts = [url componentsSeparatedByString:@"?"];
@@ -197,45 +198,54 @@ CGFloat NavbarHeight = 54;
  */
 - (void)startConnectFlowForNewUser:(NSString *)userId
 {
-    [self startConnectFlow:[NSString stringWithFormat:
-                            @"clientId:     '%@', \n"
-                            " clientUserId: '%@', \n", self.clientID, userId]];
+    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys:
+                       self.clientID, @"clientId", userId, @"clientUserId", nil]];
 }
 
 - (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken
 {
-    [self startConnectFlow:[NSString stringWithFormat:
-                            @"clientUserId: '%@', \n"
-                            " publicToken:  '%@', \n", userId, publicToken]];
+    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys: userId, @"clientUserId", publicToken, @"publicToken", nil]];
 }
 
 /** Connect flow entry point implementation */
-- (void)startConnectFlow:(NSString *)params
+- (void)loadConnect:(NSDictionary *)params
 {
     self.flowType = FlowTypeConnect;
-    //NSString *baseURL = @"http://localhost:4000";
-    NSString *baseURL = @"https://connect.humanapi.co";
-    NSString *html = [NSString stringWithFormat:@"<html> \n"
-                      "<body onload=\" \n"
-                      "HumanConnect.open({ \n"
-                      //"    iframe: true, \n"
-                      "    language: 'en', \n"
-                      "%@" // params here
-                      "    _baseURL: '%@', \n"
-                      "    finish: function(err, obj) { \n"
-                      "        window.location = 'https://connect-token?' + \n"
-                      "            'sessionToken=' + obj.sessionToken + \n"
-                      "            '&humanId=' + obj.humanId; \n"
-                      "    }, \n"
-                      "    close: function() { \n"
-                      "        window.location = 'https://connect-closed'; \n"
-                      "    } \n"
-                      "}); \n"
-                      "\"> \n"
-                      "<script src='%@/connect.js'></script> \n"
-                      "</body></html>", params, baseURL, baseURL];
-    [self.webView loadHTMLString:html baseURL:nil];
+    NSURL *url = [self connectUrlForParams:params];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:30];
+    
+    [self.webView loadRequest:request];
 }
+
+/** Returns a Connect URL for new or existing users */
+- (NSURL *)connectUrlForParams:(NSDictionary *)params {
+    NSLog(@"params: %@", params);
+    NSString *finishUrl = @"https://connect-token";
+    NSString *closeUrl = @"https://connect-closed";
+    NSString *fullURL;
+    
+    if ([params objectForKey:@"publicToken"]) {
+        fullURL = [NSString stringWithFormat:@"%@/?clientUserId=%@&publicToken=%@&finishUrl=%@&closeUrl=%@",
+                   HumanAPIConnectURL,
+                   [params objectForKey:@"clientUserId"],
+                   [params objectForKey:@"publicToken"],
+                   finishUrl,
+                   closeUrl];
+    } else {
+        fullURL = [NSString stringWithFormat:@"%@/?clientId=%@&clientUserId=%@&finishUrl=%@&closeUrl=%@",
+                   HumanAPIConnectURL,
+                   [params objectForKey:@"clientId"],
+                   [params objectForKey:@"clientUserId"],
+                   finishUrl,
+                   closeUrl];
+    }
+    
+    NSURL *url = [NSURL URLWithString:fullURL];
+    return url;
+}
+
 
 /** Process data returned from JS on connect flow */
 - (void)processConnectTokenFrom:(NSURL *)url
@@ -256,13 +266,13 @@ CGFloat NavbarHeight = 54;
         return;
     }
     NSLog(@"found humanId=%@, sessionToken=%@", humanId, sessionToken);
-
-
+    
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *postData = @{@"clientId": self.clientID,
                                @"humanId": humanId,
                                @"sessionToken": sessionToken};
-
+    
     [manager POST:self.authURL parameters:postData
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               //NSLog(@"JSON: %@", responseObject);
@@ -275,7 +285,7 @@ CGFloat NavbarHeight = 54;
               [self dismiss];
               [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
           }];
-
+    
 }
 
 /** Calls connect success method in delegate */
@@ -300,12 +310,12 @@ CGFloat NavbarHeight = 54;
 - (NSDictionary *)parseQueryString:(NSString *)query {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6];
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
-
+    
     for (NSString *pair in pairs) {
         NSArray *elements = [pair componentsSeparatedByString:@"="];
         NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+        
         [dict setObject:val forKey:key];
     }
     return dict;
@@ -319,14 +329,14 @@ CGFloat NavbarHeight = 54;
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-	//	Only allow rotation to portrait
-	return UIInterfaceOrientationMaskPortrait;
+    //	Only allow rotation to portrait
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-	//	Force to portrait
-	return UIInterfaceOrientationPortrait;
+    //	Force to portrait
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
