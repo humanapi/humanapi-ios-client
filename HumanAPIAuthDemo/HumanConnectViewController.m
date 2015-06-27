@@ -15,7 +15,7 @@ typedef enum {
     wvtPopup = 2
 } WebViewType;
 
-NSString *HumanAPIConnectURL = @"https://staging-connect.humanapi.co";
+NSString *HumanAPIConnectURL = @"https://connect.humanapi.co";
 
 // geometry vars
 CGFloat NavbarHeight = 54;
