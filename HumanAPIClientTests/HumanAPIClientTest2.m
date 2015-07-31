@@ -18,7 +18,7 @@
 
 - (void)setUp {
     [super setUp];
-    
+
     // set access token
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     client.accessToken = @"demo";
@@ -47,11 +47,11 @@
     [[client human] getWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertNotNil(res[@"activitySummary"]);
         XCTAssertEqualObjects(@"52e20cb2fff56aac62000001", res[@"userId"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -68,11 +68,11 @@
     [[client profile] getWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertEqualObjects(@"52e20cb2fff56aac62000001", res[@"userId"]);
         XCTAssertEqualObjects(@"demo@humanapi.co", res[@"email"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -89,13 +89,13 @@
     [[client geneticTrait] listWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
         NSDictionary *obj = [res objectAtIndex:0];
         XCTAssertNotNil(obj[@"userId"]);
         XCTAssertNotNil(obj[@"trait"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -112,13 +112,13 @@
     [[client bloodGlucose] latestWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertNotNil(res[@"id"]);
         XCTAssertNotNil(res[@"timestamp"]);
         XCTAssertNotNil(res[@"value"]);
         XCTAssertNotNil(res[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -133,7 +133,7 @@
     [[client bloodGlucose] readingsWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
         NSDictionary *obj = [res objectAtIndex:0];
@@ -141,7 +141,7 @@
         XCTAssertNotNil(obj[@"timestamp"]);
         XCTAssertNotNil(obj[@"value"]);
         XCTAssertNotNil(obj[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -156,13 +156,13 @@
     [[client bloodGlucose] reading:@"52e20cb3fff56aac6200044a" onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertNotNil(res[@"id"]);
         XCTAssertNotNil(res[@"timestamp"]);
         XCTAssertNotNil(res[@"value"]);
         XCTAssertNotNil(res[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -176,27 +176,27 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-23"];
-    
+
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client bloodGlucose] dailyForDay:day onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
-        
+
         NSDictionary *obj = [res objectAtIndex:0];
         XCTAssertNotNil(obj[@"id"]);
         XCTAssertNotNil(obj[@"timestamp"]);
         XCTAssertNotNil(obj[@"value"]);
         XCTAssertNotNil(obj[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
     }];
     [self waitForExpectations];
-    
+
 }
 
 // Activity Entity
@@ -208,22 +208,22 @@
     [[client activity] listWithOnSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
-        
+
         NSDictionary *obj = [res objectAtIndex:0];
         XCTAssertNotNil(obj[@"id"]);
         XCTAssertNotNil(obj[@"startTime"]);
         XCTAssertNotNil(obj[@"duration"]);
         XCTAssertNotNil(obj[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
     }];
     [self waitForExpectations];
-    
+
 }
 
 - (void)testActivityGet
@@ -233,13 +233,13 @@
     [[client activity] get:@"52e20cb5fff56aac62000b73" onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertNotNil(res[@"id"]);
         XCTAssertNotNil(res[@"startTime"]);
         XCTAssertNotNil(res[@"duration"]);
         XCTAssertNotNil(res[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -253,21 +253,21 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-24"];
-    
+
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client activity] dailyForDay:day onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSArray *res = (NSArray *)responseObject;
         XCTAssertTrue([res count] > 0);
-        
+
         NSDictionary *obj = [res objectAtIndex:0];
         XCTAssertNotNil(obj[@"id"]);
         XCTAssertNotNil(obj[@"startTime"]);
         XCTAssertNotNil(obj[@"duration"]);
         XCTAssertNotNil(obj[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -281,18 +281,18 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd"];
     NSDate *day = [dateFormat dateFromString:@"2014-01-24"];
-    
+
     HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
     [[client activity] summaryForDay:day onSuccess:^(id responseObject) {
         NSLog(@"Success response: %@", responseObject);
         XCTAssertNotNil(responseObject);
-        
+
         NSDictionary *res = (NSDictionary *)responseObject;
         XCTAssertNotNil(res[@"id"]);
         XCTAssertNotNil(res[@"date"]);
         XCTAssertNotNil(res[@"duration"]);
         XCTAssertNotNil(res[@"source"]);
-        
+
         [expectation fulfill];
     } onFailure:^(NSError *error) {
         XCTFail(@"Failure detected: %@", error);
@@ -300,50 +300,5 @@
     [self waitForExpectations];
 }
 
-// MedicalEncounters Entity
-
-- (void)testMedicalEncounterList
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
-    HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
-    [[client medicalEncounter] listWithOnSuccess:^(id responseObject) {
-        NSLog(@"Success response: %@", responseObject);
-        XCTAssertNotNil(responseObject);
-        
-        NSArray *res = (NSArray *)responseObject;
-        XCTAssertTrue([res count] > 0);
-        
-        NSDictionary *obj = [res objectAtIndex:0];
-        XCTAssertNotNil(obj[@"id"]);
-        XCTAssertNotNil(obj[@"dateTime"]);
-        XCTAssertNotNil(obj[@"organization"]);
-        
-        [expectation fulfill];
-    } onFailure:^(NSError *error) {
-        XCTFail(@"Failure detected: %@", error);
-    }];
-    [self waitForExpectations];
-    
-}
-
-- (void)testMedicalEncounterGet
-{
-    XCTestExpectation *expectation = [self expectationWithDescription:@"test ok"];
-    HumanAPIClient *client = [HumanAPIClient sharedHumanAPIClient];
-    [[client medicalEncounter] get:@"54442e3ea1d1261353c16962" onSuccess:^(id responseObject) {
-        NSLog(@"Success response: %@", responseObject);
-        XCTAssertNotNil(responseObject);
-        
-        NSDictionary *res = (NSDictionary *)responseObject;
-        XCTAssertNotNil(res[@"id"]);
-        XCTAssertNotNil(res[@"dateTime"]);
-        XCTAssertNotNil(res[@"organization"]);
-        
-        [expectation fulfill];
-    } onFailure:^(NSError *error) {
-        XCTFail(@"Failure detected: %@", error);
-    }];
-    [self waitForExpectations];
-}
 
 @end
