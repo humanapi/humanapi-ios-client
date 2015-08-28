@@ -125,6 +125,12 @@ CGFloat NavbarHeight = 54;
 /** UIWebView request handler, used for catching specific URLs */
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    // If navigation link, open in Safari
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+      
     NSString *reqStr = request.URL.absoluteString;
     NSLog(@"req = %@ : %ld", reqStr, (long)navigationType);
     if ([reqStr hasPrefix:@"https://connect-token"]) {
