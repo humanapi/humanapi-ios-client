@@ -5,12 +5,10 @@ The purpose of this SDK is to handle the Human Connect popup to allow your users
 ### What's Here
 - `HumanConnectViewController.[mh]`: browser based UI to launch Human Connect
 
->[Deprecated] If you are building a standalone application for wellness API data and do not have a backend database, refer to the client in the `wellnessDirect` branch of this repository.
-
 ## How To Use in Your Project
-
 Check out the guide on our Developer Hub: http://hub.humanapi.co/docs/mobile-guide-ios
 
+*see the `connectDemo` branch of this repository for an example project*
 
 # Changelog
 
