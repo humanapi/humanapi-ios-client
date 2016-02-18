@@ -1,11 +1,10 @@
 //
 //  HumanConnectViewController.m
-//  Copyright (c) 2015 HumanAPI. All rights reserved.
+//  Copyright (c) 2016 Human API. All rights reserved.
+//  Version 1.0
 //
 
 #import "HumanConnectViewController.h"
-#import "NXOAuth2.h"
-#import "AFNetworking.h"
 
 @implementation HumanConnectViewController
 
@@ -130,7 +129,7 @@ CGFloat NavbarHeight = 54;
         [[UIApplication sharedApplication] openURL:[request URL]];
         return NO;
     }
-      
+
     NSString *reqStr = request.URL.absoluteString;
     NSLog(@"req = %@ : %ld", reqStr, (long)navigationType);
     if ([reqStr hasPrefix:@"https://connect-token"]) {
@@ -145,20 +144,16 @@ CGFloat NavbarHeight = 54;
     // Popup handling
     NSString *url = reqStr;
     if ([url hasPrefix:@"https://close-popup-with-message"]) {
-        NSLog(@"closing popup with message ...");
         [self closePopup];
         [self postMessageFromUrl:url];
         return NO;
     } else if ([url hasPrefix:@"https://close-popup"]) {
-        NSLog(@"closing popup ...");
         [self closePopup];
         return NO;
     } else if ([url rangeOfString:@"popup=1"].location != NSNotFound) {
-        NSLog(@"got popup request ...");
         if (webView.tag == wvtPopup) {
             return YES; // already created
         }
-        NSLog(@"opening popup window ...");
         self.webView.hidden = YES;
         self.popupWebView.hidden = NO;
         [self.popupWebView loadRequest:request];
@@ -174,7 +169,7 @@ CGFloat NavbarHeight = 54;
     NSArray *parts = [url componentsSeparatedByString:@"?"];
     if ([parts count] > 1) {
         NSString *message = parts[1];
-        NSLog(@"parsed message = %@", message);
+//        NSLog(@"parsed message = %@", message);
         NSString *js = [NSString stringWithFormat:@""
                         "window.postMessage(decodeURIComponent('%@'), '*');", message];
         __unused NSString *jsOverrides = [self.webView
@@ -188,8 +183,6 @@ CGFloat NavbarHeight = 54;
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     if (webView.tag == wvtPopup) {
-        // popup: overwrite the 'window.close' to be a 'close-popup' URL
-        NSLog(@"overwriting window.close ...");
         NSString *jsClose = @""
         "window.close = function () { \n"
         "   window.location.assign('https://close-popup'); \n"
@@ -274,23 +267,46 @@ CGFloat NavbarHeight = 54;
     NSLog(@"found humanId=%@, sessionToken=%@", humanId, sessionToken);
 
 
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *postData = @{@"clientId": self.clientID,
-                               @"humanId": humanId,
-                               @"sessionToken": sessionToken};
+    //POST sessionTokenObject to authURL
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    [sessionConfig setHTTPAdditionalHeaders:@{@"Content-Type": @"application/json"}];
 
-    [manager POST:self.authURL parameters:postData
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              //NSLog(@"JSON: %@", responseObject);
-              NSDictionary *res = (NSDictionary *)responseObject;
-              [self dismiss];
-              [self fireConnectSuccessWithPublicToken:res[@"publicToken"]];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error: %@", error);
-              [self dismiss];
-              [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
-          }];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig];
+
+    NSMutableURLRequest *request =
+    [[NSMutableURLRequest alloc] initWithURL: [[NSURL alloc] initWithString:self.authURL]];
+    [request setHTTPMethod:@"POST"];
+
+    NSDictionary *sessionTokenObject = [[NSDictionary alloc] initWithObjectsAndKeys:
+                             humanId, @"humanId",
+                             self.clientID, @"clientId",
+                             sessionToken, @"sessionToken",
+                             nil];
+
+    NSData *postData = [NSJSONSerialization dataWithJSONObject:sessionTokenObject options:0 error: nil];
+
+    NSURLSessionUploadTask *postTask =
+    [urlSession uploadTaskWithRequest:request
+                             fromData:postData
+                    completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+    {
+        NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+
+        if (!error && (httpResp.statusCode == 200 || httpResp.statusCode == 201)) {
+            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            NSLog(@"response from server: %@", res);
+            [self dismiss];
+            NSString * publicToken = res[@"publicToken"];
+            [self fireConnectSuccessWithPublicToken: publicToken != NULL ? publicToken : @"" ];
+        } else {
+            NSLog(@"Error: %@", error);
+            [self dismiss];
+            [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
+
+        }
+    }];
+
+    [postTask resume];
 
 }
 
@@ -333,7 +349,7 @@ CGFloat NavbarHeight = 54;
     // Dispose of any resources that can be recreated.
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
 	//	Only allow rotation to portrait
 	return UIInterfaceOrientationMaskPortrait;
