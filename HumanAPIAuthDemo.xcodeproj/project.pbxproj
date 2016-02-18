@@ -14,9 +14,7 @@
 		2747B2D71B17C9F100D78BA0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2D61B17C9F100D78BA0 /* Images.xcassets */; };
 		2747B2DA1B17C9F100D78BA0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2D81B17C9F100D78BA0 /* LaunchScreen.xib */; };
 		2747B2E61B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2747B2E51B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m */; };
-		2747B2F81B17CB6700D78BA0 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2747B2F61B17CB6700D78BA0 /* Podfile */; };
 		2786D8C91B1CE92000F53D82 /* HumanConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2786D8C81B1CE92000F53D82 /* HumanConnectViewController.m */; };
-		FCD80A1D85E89F7D3FD9E082 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EF89F59C468B599D86E4747 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +41,8 @@
 		2747B2DF1B17C9F100D78BA0 /* HumanAPIAuthDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HumanAPIAuthDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2747B2E41B17C9F100D78BA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2747B2E51B17C9F100D78BA0 /* HumanAPIAuthDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HumanAPIAuthDemoTests.m; sourceTree = "<group>"; };
-		2747B2F61B17CB6700D78BA0 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		2786D8C71B1CE92000F53D82 /* HumanConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanConnectViewController.h; sourceTree = "<group>"; };
 		2786D8C81B1CE92000F53D82 /* HumanConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HumanConnectViewController.m; sourceTree = "<group>"; };
-		4EF89F59C468B599D86E4747 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		67477BF899A3DFD6887BB6FB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		F6052F443E93DECA7BC740A9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCD80A1D85E89F7D3FD9E082 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,9 +69,6 @@
 				2747B2C81B17C9F100D78BA0 /* HumanAPIAuthDemo */,
 				2747B2E21B17C9F100D78BA0 /* HumanAPIAuthDemoTests */,
 				2747B2C71B17C9F100D78BA0 /* Products */,
-				2747B2F61B17CB6700D78BA0 /* Podfile */,
-				A477207176146F5F7CA17866 /* Pods */,
-				BE51D7FB8F9E34B4DDF10ED3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,23 +124,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A477207176146F5F7CA17866 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				F6052F443E93DECA7BC740A9 /* Pods.debug.xcconfig */,
-				67477BF899A3DFD6887BB6FB /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		BE51D7FB8F9E34B4DDF10ED3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4EF89F59C468B599D86E4747 /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,11 +131,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2747B2E91B17C9F100D78BA0 /* Build configuration list for PBXNativeTarget "HumanAPIAuthDemo" */;
 			buildPhases = (
-				21BC559B4105B7EE0757969A /* Check Pods Manifest.lock */,
 				2747B2C21B17C9F100D78BA0 /* Sources */,
 				2747B2C31B17C9F100D78BA0 /* Frameworks */,
 				2747B2C41B17C9F100D78BA0 /* Resources */,
-				20C380BDCEFF272F2810C6D1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -233,7 +204,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2747B2F81B17CB6700D78BA0 /* Podfile in Resources */,
 				2747B2D51B17C9F100D78BA0 /* Main.storyboard in Resources */,
 				2747B2DA1B17C9F100D78BA0 /* LaunchScreen.xib in Resources */,
 				2747B2D71B17C9F100D78BA0 /* Images.xcassets in Resources */,
@@ -248,39 +218,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		20C380BDCEFF272F2810C6D1 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		21BC559B4105B7EE0757969A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2747B2C21B17C9F100D78BA0 /* Sources */ = {
@@ -414,10 +351,10 @@
 		};
 		2747B2EA1B17C9F100D78BA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6052F443E93DECA7BC740A9 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HumanAPIAuthDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -425,10 +362,10 @@
 		};
 		2747B2EB1B17C9F100D78BA0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67477BF899A3DFD6887BB6FB /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = HumanAPIAuthDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

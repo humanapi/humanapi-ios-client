@@ -1,6 +1,7 @@
 //
 //  HumanConnectViewController.h
-//  Copyright (c) 2014 Human API. All rights reserved.
+//  Copyright (c) 2016 Human API. All rights reserved.
+//  Version 1.0
 //
 
 #import <UIKit/UIKit.h>

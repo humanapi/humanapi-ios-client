@@ -36,7 +36,7 @@
     [self presentViewController:hcvc animated:YES completion:nil];
     
     //For demo purposes -- with local user accounts, use code below instead
-    [hcvc startConnectFlowForNewUser:@"texst_dsusss1ser15@hapi.co"];
+    [hcvc startConnectFlowForNewUser:@"testing@hapi.co"];
     
     //If you have a publicToken for the user, supply it to Human Connect on launch
     //localUser refers to the current logged in user w/ email and publicToken
