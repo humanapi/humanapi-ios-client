@@ -12,6 +12,10 @@ Check out the guide on our Developer Hub: http://hub.humanapi.co/docs/mobile-gui
 
 # Changelog
 
+## 1.1 - 3/23/2016
+* Added support for `language` and `mode`
+* Fixed issue with opening external links
+
 ## 1.0 - 2/18/2016
 * Added version numbers to the top of each file for tracking
 * Removed pod dependencies from project to make integrations simpler
