@@ -1,7 +1,7 @@
 //
 //  HumanConnectViewController.h
 //  Copyright (c) 2016 Human API. All rights reserved.
-//  Version 1.0
+//  Version 1.1
 //
 
 #import <UIKit/UIKit.h>
@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 @property (nonatomic, retain) UIWebView *popupWebView;
 @property NSString *clientID;
 @property NSString *authURL;
+@property NSDictionary *options;
 @property HumanAPIFlowType flowType;
 @property CGFloat keyboardFixer;
 

@@ -33,6 +33,13 @@
     HumanConnectViewController *hcvc = [[HumanConnectViewController alloc] initWithClientID:myClientID
                                                                         andAuthURL:authURL];
     hcvc.delegate = self;
+    
+    //Add any customization options here
+//    hcvc.options = [NSDictionary dictionaryWithObjectsAndKeys:
+//                    @"tr",@"language",
+//                    @"wellness",@"mode",
+//                    nil];
+    
     [self presentViewController:hcvc animated:YES completion:nil];
     
     //For demo purposes -- with local user accounts, use code below instead
