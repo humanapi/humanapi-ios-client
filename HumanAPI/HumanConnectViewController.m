@@ -1,7 +1,7 @@
 //
 //  HumanConnectViewController.m
 //  Copyright (c) 2016 Human API. All rights reserved.
-//  Version 1.0
+//  Version 1.1
 //
 
 #import "HumanConnectViewController.h"
@@ -34,21 +34,21 @@ CGFloat NavbarHeight = 54;
 {
     [super viewDidLoad];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookieAcceptPolicy:NSHTTPCookieAcceptPolicyAlways];
-
+    
     // Geometry calculations
     int ScreenWidth = (int)[[UIScreen mainScreen ]bounds].size.width;
     int ScreenHeight = (int)[[UIScreen mainScreen ]bounds].size.height;
-
+    
     // UIWebView init
     self.webView = [[UIWebView alloc] initWithFrame:
                     CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
-                                       UIViewAutoresizingFlexibleHeight);
+                                     UIViewAutoresizingFlexibleHeight);
     self.webView.delegate = self;
     self.webView.tag = wvtMain;
     [self.view addSubview:self.webView];
-
+    
     // Popup UIWebView init
     self.popupWebView = [[UIWebView alloc] initWithFrame:
                          CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
@@ -59,8 +59,8 @@ CGFloat NavbarHeight = 54;
     self.popupWebView.hidden = YES;
     self.popupWebView.tag = wvtPopup;
     [self.view addSubview:self.popupWebView];
-
-
+    
+    
     // Navigation bar
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
                                CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
@@ -74,7 +74,7 @@ CGFloat NavbarHeight = 54;
     navItem.rightBarButtonItem = doneButton;
     navbar.items = @[ navItem ];
     [self.view addSubview:navbar];
-
+    
     // keyboard hide handler
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification object:nil];
@@ -124,13 +124,17 @@ CGFloat NavbarHeight = 54;
 /** UIWebView request handler, used for catching specific URLs */
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
+    NSString *reqStr = request.URL.absoluteString;
+    BOOL externalLink = ([reqStr rangeOfString:@"hapi_external=1"].location != NSNotFound);
+    
     // If navigation link, open in Safari
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        [[UIApplication sharedApplication] openURL:[request URL]];
+    if (externalLink && navigationType == UIWebViewNavigationTypeLinkClicked){
+        reqStr = [reqStr stringByReplacingOccurrencesOfString:@"hapi_external=1" withString:@""];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:reqStr]];
         return NO;
     }
-
-    NSString *reqStr = request.URL.absoluteString;
+    
     NSLog(@"req = %@ : %ld", reqStr, (long)navigationType);
     if ([reqStr hasPrefix:@"https://connect-token"]) {
         [self processConnectTokenFrom:request.URL];
@@ -140,7 +144,7 @@ CGFloat NavbarHeight = 54;
         [self dismiss];
         return NO;
     }
-
+    
     // Popup handling
     NSString *url = reqStr;
     if ([url hasPrefix:@"https://close-popup-with-message"]) {
@@ -163,13 +167,13 @@ CGFloat NavbarHeight = 54;
 }
 
 /** Post message from URL to main view.
-    URL format: https://close-popup-with-message?[message] */
+ URL format: https://close-popup-with-message?[message] */
 - (void)postMessageFromUrl:(NSString *)url
 {
     NSArray *parts = [url componentsSeparatedByString:@"?"];
     if ([parts count] > 1) {
         NSString *message = parts[1];
-//        NSLog(@"parsed message = %@", message);
+        //        NSLog(@"parsed message = %@", message);
         NSString *js = [NSString stringWithFormat:@""
                         "window.postMessage(decodeURIComponent('%@'), '*');", message];
         __unused NSString *jsOverrides = [self.webView
@@ -198,50 +202,43 @@ CGFloat NavbarHeight = 54;
 - (void)startConnectFlowForNewUser:(NSString *)userId
 {
     [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys:
-                      self.clientID, @"clientId", userId, @"clientUserId", nil]];
+                       self.clientID, @"clientId", userId, @"clientUserId", nil]];
 }
 
 - (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken
 {
-    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys: userId, @"clientUserId", publicToken, @"publicToken", nil]];
+    [self loadConnect:[NSDictionary dictionaryWithObjectsAndKeys:
+                       self.clientID, @"clientId", userId, @"clientUserId", publicToken, @"publicToken", nil]];
 }
 
 /** Connect flow entry point implementation */
 - (void)loadConnect:(NSDictionary *)params
 {
+    NSMutableDictionary *allParams = [[NSMutableDictionary alloc] init];
+    [allParams addEntriesFromDictionary:params];
+    [allParams addEntriesFromDictionary:self.options];
     self.flowType = FlowTypeConnect;
-    NSURL *url = [self connectUrlForParams:params];
+    NSURL *url = [self connectUrlForParams:allParams];
     NSURLRequest* request = [NSURLRequest requestWithURL:url
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                          timeoutInterval:30];
-
+    
     [self.webView loadRequest:request];
 }
 
 /** Returns a Connect URL for new or existing users */
-- (NSURL *)connectUrlForParams:(NSDictionary *)params {
+- (NSURL *)connectUrlForParams:(NSMutableDictionary *)params {
     NSLog(@"params: %@", params);
     NSString *finishUrl = @"https://connect-token";
     NSString *closeUrl = @"https://connect-closed";
-    NSString *fullURL;
-
-    if ([params objectForKey:@"publicToken"]) {
-        fullURL = [NSString stringWithFormat:@"%@/?clientUserId=%@&publicToken=%@&finishUrl=%@&closeUrl=%@",
-                   HumanAPIConnectURL,
-                   [params objectForKey:@"clientUserId"],
-                   [params objectForKey:@"publicToken"],
-                   finishUrl,
-                   closeUrl];
-    } else {
-        fullURL = [NSString stringWithFormat:@"%@/?clientId=%@&clientUserId=%@&finishUrl=%@&closeUrl=%@",
-                   HumanAPIConnectURL,
-                   [params objectForKey:@"clientId"],
-                   [params objectForKey:@"clientUserId"],
-                   finishUrl,
-                   closeUrl];
+    NSString *paramsString = [NSString stringWithFormat:@"/?finishUrl=%@&closeUrl=%@",finishUrl,closeUrl];
+    
+    
+    for(id key in params) {
+        paramsString = [paramsString stringByAppendingString:[NSString stringWithFormat: @"&%@=%@",key,[params objectForKey:key]]];
     }
-
-    NSURL *url = [NSURL URLWithString:fullURL];
+    
+    NSURL *url = [NSURL URLWithString:[HumanAPIConnectURL stringByAppendingString:paramsString]];
     return url;
 }
 
@@ -265,49 +262,49 @@ CGFloat NavbarHeight = 54;
         return;
     }
     NSLog(@"found humanId=%@, sessionToken=%@", humanId, sessionToken);
-
-
+    
+    
     //POST sessionTokenObject to authURL
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     [sessionConfig setHTTPAdditionalHeaders:@{@"Content-Type": @"application/json"}];
-
+    
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:sessionConfig];
-
+    
     NSMutableURLRequest *request =
     [[NSMutableURLRequest alloc] initWithURL: [[NSURL alloc] initWithString:self.authURL]];
     [request setHTTPMethod:@"POST"];
-
+    
     NSDictionary *sessionTokenObject = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             humanId, @"humanId",
-                             self.clientID, @"clientId",
-                             sessionToken, @"sessionToken",
-                             nil];
-
+                                        humanId, @"humanId",
+                                        self.clientID, @"clientId",
+                                        sessionToken, @"sessionToken",
+                                        nil];
+    
     NSData *postData = [NSJSONSerialization dataWithJSONObject:sessionTokenObject options:0 error: nil];
-
+    
     NSURLSessionUploadTask *postTask =
     [urlSession uploadTaskWithRequest:request
                              fromData:postData
                     completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-    {
-        NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
-
-        if (!error && (httpResp.statusCode == 200 || httpResp.statusCode == 201)) {
-            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-            NSLog(@"response from server: %@", res);
-            [self dismiss];
-            NSString * publicToken = res[@"publicToken"];
-            [self fireConnectSuccessWithPublicToken: publicToken != NULL ? publicToken : @"" ];
-        } else {
-            NSLog(@"Error: %@", error);
-            [self dismiss];
-            [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
-
-        }
-    }];
-
+     {
+         NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+         
+         if (!error && (httpResp.statusCode == 200 || httpResp.statusCode == 201)) {
+             NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+             NSLog(@"response from server: %@", res);
+             [self dismiss];
+             NSString * publicToken = res[@"publicToken"];
+             [self fireConnectSuccessWithPublicToken: publicToken != NULL ? publicToken : @"" ];
+         } else {
+             NSLog(@"Error: %@", error);
+             [self dismiss];
+             [self fireConnectFailureWithError:[NSString stringWithFormat:@"error POSTing sessionTokenObject to server endpoint: %@",self.authURL]];
+             
+         }
+     }];
+    
     [postTask resume];
-
+    
 }
 
 /** Calls connect success method in delegate */
@@ -332,12 +329,12 @@ CGFloat NavbarHeight = 54;
 - (NSDictionary *)parseQueryString:(NSString *)query {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6];
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
-
+    
     for (NSString *pair in pairs) {
         NSArray *elements = [pair componentsSeparatedByString:@"="];
         NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+        
         [dict setObject:val forKey:key];
     }
     return dict;
@@ -351,14 +348,14 @@ CGFloat NavbarHeight = 54;
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
-	//	Only allow rotation to portrait
-	return UIInterfaceOrientationMaskPortrait;
+    //	Only allow rotation to portrait
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
-	//	Force to portrait
-	return UIInterfaceOrientationPortrait;
+    //	Force to portrait
+    return UIInterfaceOrientationPortrait;
 }
 
 @end
