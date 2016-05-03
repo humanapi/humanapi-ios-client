@@ -15,8 +15,8 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 /** Notifications (callbacks) specification */
 @protocol HumanAPINotifications <NSObject>
 @optional
-- (void)onConnectSuccess:(NSString *)publicToken;
-- (void)onConnectFailure:(NSString *)error;
+- (void)onError:(NSString *)error;
+- (void)onSuccessWithSessionToken:(NSString *)sessionToken andHumanId:(NSString *)humanId;
 @end
 
 /**
@@ -28,12 +28,11 @@ typedef NS_ENUM(NSInteger, HumanAPIFlowType) {
 @property (nonatomic, retain) UIWebView *webView;
 @property (nonatomic, retain) UIWebView *popupWebView;
 @property NSString *clientID;
-@property NSString *authURL;
 @property NSDictionary *options;
 @property HumanAPIFlowType flowType;
 @property CGFloat keyboardFixer;
 
-- (id)initWithClientID:(NSString *)cliendID andAuthURL:(NSString *)authURL;
+- (id)initWithClientID:(NSString *)cliendID;
 - (void)startConnectFlowForNewUser:(NSString *)userId;
 - (void)startConnectFlowFor:(NSString *)userId andPublicToken:(NSString *)publicToken;
 
