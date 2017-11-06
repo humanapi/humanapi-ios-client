@@ -51,7 +51,7 @@ CGFloat NavbarHeight = 54;
     
     // Popup UIWebView init
     self.popupWebView = [[UIWebView alloc] initWithFrame:
-                         CGRectMake(0, NavbarHeight, ScreenWidth, ScreenHeight - NavbarHeight)];
+                         CGRectMake(0, 0, ScreenWidth, ScreenHeight - NavbarHeight)];
     self.popupWebView.backgroundColor = [UIColor whiteColor];
     self.popupWebView.autoresizingMask = (UIViewAutoresizingFlexibleWidth |
                                           UIViewAutoresizingFlexibleHeight);
@@ -63,7 +63,7 @@ CGFloat NavbarHeight = 54;
     
     // Navigation bar
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:
-                               CGRectMake(0, 0, ScreenWidth, NavbarHeight)];
+                               CGRectMake(0, 20, ScreenWidth, NavbarHeight)];
     navbar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = @"Human API";
@@ -127,7 +127,7 @@ CGFloat NavbarHeight = 54;
     
     NSString *reqStr = request.URL.absoluteString;
     BOOL externalLink = ([reqStr rangeOfString:@"hapi_external=1"].location != NSNotFound);
-    
+
     // If navigation link, open in Safari
     if (externalLink && navigationType == UIWebViewNavigationTypeLinkClicked){
         reqStr = [reqStr stringByReplacingOccurrencesOfString:@"hapi_external=1" withString:@""];
@@ -232,7 +232,7 @@ CGFloat NavbarHeight = 54;
     NSString *finishUrl = @"https://connect-token";
     NSString *closeUrl = @"https://connect-closed";
     NSString *paramsString = [NSString stringWithFormat:@"/?finishUrl=%@&closeUrl=%@",finishUrl,closeUrl];
-    
+
     
     for(id key in params) {
         paramsString = [paramsString stringByAppendingString:[NSString stringWithFormat: @"&%@=%@",key,[params objectForKey:key]]];
